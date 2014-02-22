@@ -20,7 +20,10 @@ function runBullet(x,y, bulletDirection) {
     
     runBullet.bulletDirection=runBullet.ui.bulletDirection;
     runBullet.socket.emit("bulletFired",[x,y]);
-    return new Rectangle(x,y+3,10,2,"#556677",{right:3,down:0});
+    var outBullet=new Rectangle(x,y+5,20,10,"#556677",{right:3,down:0},runBullet.bulletDirection);
+
+//    outBullet.setDirection(runBullet.bulletDirection);
+    return outBullet;
     
 }
 

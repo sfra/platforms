@@ -62,7 +62,7 @@ function outside(rect,context,blocks) {
         
         if ( rect.y + rect.h > blocks[i].y  && rect.y < blocks[i].y+ blocks[i].h && rect.x-rect.speed.right<blocks[i].x+blocks[i].w && rect.x+rect.w>blocks[i].x ) {
 //            debugger;
-            console.log(rect.speed.right);
+        //    console.log(rect.speed.right);
             out|=1; /*left*/
             theRest=Math.min(theRest, blocks[i].x+blocks[i].w-(rect.x-rect.speed.right));
         }
