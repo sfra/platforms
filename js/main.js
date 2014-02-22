@@ -160,7 +160,7 @@ player.eventOnMove="playerMoved";
     });  
     socket.on('bulletFired',function(data){
        // debugger;
-        otherPlayerBullet=new Rectangle(data[0],data[1]+3,10,2,"#ff0000",{right:3,down:0});
+        otherPlayerBullet=new Rectangle(data[0],data[1]+3,20,10,"img:otherPlayerBullet",{right:3,down:0},data[2],5);
        
     });
     socket.on('bulletMove',function(data){
