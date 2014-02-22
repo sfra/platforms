@@ -54,7 +54,7 @@ function outside(rect,context,blocks) {
     
         
         if ( rect.y + rect.h > blocks[i].y  && rect.y < blocks[i].y+ blocks[i].h && rect.x+rect.w==blocks[i].x  ) {
-            console.log("left");
+          
                 //        console.log(rect.speed.right);
             out|=2; /*right*/
         }

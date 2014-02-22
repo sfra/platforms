@@ -14,14 +14,7 @@ Server.nextFrame=function(io, sockets){
 
 (function server() {
     var io = require('socket.io').listen(1338);
-    
-
-    var shelfs=[
-                {"geometry": [160,200,40,20],"color":"#112233","speed":{right:0,down:0}},
-                {"geometry": [200,220,100,10],"color":"#112233","speed":{right:0,down:0}},
-                {"geometry": [240,260,100,10],"color":"#112233","speed":{right:0,down:0}}
-               ];
-    
+    var shelfs=require('./shelfs.json');
     var sockets=[];
 
     setInterval(function(){Server.nextFrame(io,sockets);},10 );
@@ -31,6 +24,7 @@ Server.nextFrame=function(io, sockets){
     io.sockets.on('connection', function (socket) {
       sockets.push(socket);
       socket.emit('initGame', shelfs);
+      console.log(shelfs);
       socket.on('playerMoved', function (data) {
         for (var sock=0;sock<sockets.length; sock++) {
             if (sockets[sock]!==socket) {

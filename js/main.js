@@ -1,6 +1,6 @@
 "use strict";
 define(["Rectangle","collision","Bullet","jquery"],function (Rectangle,collision,Bullet,$) {
-console.log(Rectangle);
+
 
 var KEYNUMBER={
     left:37, up:38,right:39,down: 40, space: 32, shift:16, z: 90
@@ -90,9 +90,9 @@ var ui={
 var cnv=document.getElementById("cnv");
 var context=cnv.getContext("2d");
 
-var player=new Rectangle(140,10,10,10,false,{right:2,down:2});
+var player=new Rectangle(140,10,20,20,"#445566",{right:2,down:2});
 
-var otherPlayer= new Rectangle(140,10,10,10, "#ff0000",{right:0,down:0});
+var otherPlayer= new Rectangle(140,10,20,20, "#ff0000",{right:0,down:0});
 var otherPlayerBullet=null;
 Rectangle.ui=ui;
 
@@ -118,12 +118,13 @@ player.eventOnMove="playerMoved";
     socket.on('initGame', function (data) {
     
     for(var ob=0;ob<data.length;ob++){
+        //debugger;
         shelfs.push(new Rectangle(data[ob].geometry[0],
                                  data[ob].geometry[1],
                                  data[ob].geometry[2],
                                  data[ob].geometry[3],
-                                 data.color,
-                                 data.speed
+                                 data[ob].color,
+                                 data[ob].speed
                                  ));            
       
     }    
@@ -153,6 +154,7 @@ player.eventOnMove="playerMoved";
   socket.on('move',function(data){
         otherPlayer.x=data[0];
         otherPlayer.y=data[1];
+        console.log(shelfs);
 
     });  
     socket.on('bulletFired',function(data){
@@ -178,9 +180,10 @@ player.eventOnMove="playerMoved";
 
 function nextFrame(step) {
         context.cls();
-        
+
         for (var i=0;i<shelfs.length;i++) {
             shelfs[i].draw(context);
+
         }
      
         if (ui.isJumping.length>0) {
