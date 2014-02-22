@@ -91,9 +91,9 @@ var ui={
 var cnv=document.getElementById("cnv");
 var context=cnv.getContext("2d");
 
-var player=new Rectangle(140,10,20,20,"#445566",{right:2,down:2});
+var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
 
-var otherPlayer= new Rectangle(140,10,20,20, "#ff0000",{right:0,down:0});
+var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
 var otherPlayerBullet=null;
 Rectangle.ui=ui;
 

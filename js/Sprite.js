@@ -5,6 +5,7 @@ define([],function(){
     function Sprite(url,numberOfFrames,direction) {
         
         var images=[];
+        var imagesRight=[];
             //   console.log(direction);
        
         
@@ -17,6 +18,7 @@ define([],function(){
         for (var i=0;i<numberOfFrames;i++) {
             images.push(new Image());
             images[i].src="media/images/sprites/"+url+subfolder+"/0"+i+".png";
+        
         }
 
         //console.log(images);
