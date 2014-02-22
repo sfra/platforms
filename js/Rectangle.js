@@ -3,7 +3,7 @@
 define(["socketio","Sprite"],function(socket,Sprite){
 
 
-function Rectangle(x,y,w,h,fill,speed,direction) {
+function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     this.x=x;
     this.y=y;
     
@@ -13,6 +13,9 @@ function Rectangle(x,y,w,h,fill,speed,direction) {
     this.speed=speed;
     if (direction) {
         this.direction=direction;
+    }
+    if (numberOfFrames) {
+        this.numberOfFrames=numberOfFrames;
     }
 
     
@@ -25,7 +28,10 @@ function Rectangle(x,y,w,h,fill,speed,direction) {
     
     var fillArray=fill.split(":");
      if (fillArray[0]=='img') {
-        this.sprite=new Sprite(fillArray[1],17,this.direction);
+        console.log("numberOf Frames");
+        console.log(this.numberOfFrames);
+        
+        this.sprite=new Sprite(fillArray[1],this.numberOfFrames,this.direction);
         this.draw=drawImage.bind(this);
     }
     

@@ -2,6 +2,7 @@
 define(["Rectangle","collision","Bullet","jquery"],function (Rectangle,collision,Bullet,$) {
 
 
+
 var KEYNUMBER={
     left:37, up:38,right:39,down: 40, space: 32, shift:16, z: 90
     
@@ -124,7 +125,7 @@ player.eventOnMove="playerMoved";
                                  data[ob].geometry[2],
                                  data[ob].geometry[3],
                                  data[ob].color,
-                                 data[ob].speed
+                                 data[ob].speed,0,17
                                  ));            
       
     }    
