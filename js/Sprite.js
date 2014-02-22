@@ -7,9 +7,16 @@ define([],function(){
         var images=[];
             //   console.log(direction);
        
+        
+        var subfolder="";
+        
+        if (direction===1) {
+            subfolder="/right"
+        }
+        
         for (var i=0;i<numberOfFrames;i++) {
             images.push(new Image());
-            images[i].src="media/images/sprites/"+url+"/0"+i+".png";
+            images[i].src="media/images/sprites/"+url+subfolder+"/0"+i+".png";
         }
 
         //console.log(images);
