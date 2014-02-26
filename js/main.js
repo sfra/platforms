@@ -34,6 +34,7 @@ var ui={
     down: true,
     space: false,
     isJumping: false,
+    faceToLeft:{now: true, prev: true},
     eventFrameSync: 0,
     gameSpeed: 10,
     turbo: 1,
@@ -92,6 +93,8 @@ var cnv=document.getElementById("cnv");
 var context=cnv.getContext("2d");
 
 var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
+player.spriteDecorator.setReversible();
+player.spriteDecorator.setLeft();
 
 var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
 var otherPlayerBullet=null;
@@ -155,13 +158,18 @@ player.eventOnMove="playerMoved";
   socket.on('move',function(data){
         otherPlayer.x=data[0];
         otherPlayer.y=data[1];
-        console.log(shelfs);
+      //  console.log(shelfs);
 
     });  
     socket.on('bulletFired',function(data){
        // debugger;
         otherPlayerBullet=new Rectangle(data[0],data[1]+3,20,10,"img:otherPlayerBullet",{right:3,down:0},data[2],5);
-       
+        //otherPlayerBullet.spriteDecorator.setReversible();
+        //
+        //if (data[1]==-1) {
+        //    otherPlayerBullet.spriteDecorator.setLeft();
+        //}
+        
     });
     socket.on('bulletMove',function(data){
         otherPlayerBullet.x=data;
@@ -229,12 +237,20 @@ function nextFrame(step) {
         
 
 
+       
+       if(ui.faceToLeft.now != ui.faceToLeft.prev){
+        console.log(ui.faceToLeft.now, ui.faceToLeft.prev);
+            //debugger;
+            player.spriteDecorator.changeDirection(); 
+        } 
         
-        if (ui.left) {
-            player.sprite.setImages();
-        } else if (ui.right) {
-            player.sprite.setImages(true);
-        }
+        
+        //if (ui.left) {
+        // //   player.sprite.setImages();
+        //    player.sprite.checkDirection();
+        //} else if (ui.right) {
+        //    player.sprite.setImages(true);
+        //}
         
         
         
@@ -251,7 +267,7 @@ function nextFrame(step) {
         ui.changed({"type":"changed"});
         
  //       setTimeout(function(){nextFrame(step+1)},ui.gameSpeed);
-   
+        ui.faceToLeft.prev=ui.faceToLeft.now;   
 }
 
 
@@ -266,11 +282,16 @@ $("body").on("keydown",function(e){
             case "left":
                 ui.left=true; ui.right=false;
                 //if (ui.bulletDirection==0) {
+                    ui.faceToLeft.prev=ui.faceToLeft.now;
+                    ui.faceToLeft.now=true;
                     ui.bulletDirection=-1;
                 //};
                 break;
             case "right": ui.right=true; ui.left=false;
                 //if (ui.bulletDirection==0) {
+                //    debugger;
+                    ui.faceToLeft.prev=ui.faceToLeft.now;
+                    ui.faceToLeft.now=false;
                     ui.bulletDirection=1;
                 //};
             
@@ -280,6 +301,7 @@ $("body").on("keydown",function(e){
                  ui.isJumping=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,1,1]; player.jumpable=false;}; break;
             case "shift":ui.turbo=2; break;
             case "z": ui.bullet=Bullet.runBullet(player.x,player.y,ui.bulletDirection);
+           // default : ui.faceToLeft.now=ui.faceToLeft.prev;
             
         }
         

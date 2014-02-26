@@ -1,6 +1,6 @@
 "use strict";
 
-define(["socketio","Sprite"],function(socket,Sprite){
+define(["socketio","Sprite","SpriteDecorator"],function(socket,Sprite,SpriteDecorator){
 
 var i=0;
 function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
@@ -11,6 +11,8 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     this.w=w;
     this.h=h;
     this.speed=speed;
+
+    
     if (direction) {
         this.direction=direction;
     }
@@ -32,11 +34,22 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
         console.log(this.numberOfFrames);
         
         this.sprite=new Sprite(fillArray[1],this.numberOfFrames,this.direction);
+        this.spriteDecorator=new SpriteDecorator(this.sprite);
+        
         var that=this;
         
         //drawing it the case of Sprite must be changed
         this.draw=function(cnv){
-             cnv.drawImage(that.sprite.getNextFrame(),that.x,that.y,that.w,that.h);};
+            
+            try {
+             cnv.drawImage(that.sprite.getNextFrame(),that.x,that.y,that.w,that.h)   
+            } catch(e) {
+                console.log(this.sprite);
+                console.log(e);
+            }
+            
+             ;
+             };
         //drawImage.bind(this);
     }
     
@@ -93,6 +106,9 @@ Rectangle.prototype.draw=function(cnv){
     cnv.fillStyle=this.color;
     cnv.fillRect(this.x,this.y,this.w, this.h);
     cnv.fillStyle=previousFill;
+}
+Rectangle.prototype.spriteChangeDirection=function(){
+    this.spriteDecorator.changeDirection();
 }
 
 //Rectangle.prototype.setDirection=function(direction){

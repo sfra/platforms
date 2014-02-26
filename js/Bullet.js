@@ -14,6 +14,11 @@ define(["Rectangle","collision"], function(Rectangle,collision){
         var outBullet = new Rectangle(x, y + 5, 20, 10,
                                       "img:bullet", {right: 3, down: 0},
                                       runBullet.bulletDirection, 5);
+        //outBullet.spriteDecorator.setReversible();
+        //if (runBullet.bulletDirection==-1) {
+        //    outBullet.spriteDecorator.setLeft();
+        //}
+        
         return outBullet;
     }
 
