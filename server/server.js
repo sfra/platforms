@@ -39,6 +39,19 @@ Server.nextFrame=function(io, sockets){
       });
       
       
+      
+      socket.on('changeDirection',function(data){
+            for (sock=0; sock<sockets.length; sock+=1) {
+                if (sockets[sock]!=socket) {
+
+                    sockets[sock].emit('changeDirection',data);
+                }
+            }
+        
+        
+        });
+      
+      
         socket.on('bulletFired',function(data){
             for (sock=0; sock<sockets.length; sock+=1) {
                 if (sockets[sock]!=socket) {

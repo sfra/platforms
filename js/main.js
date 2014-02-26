@@ -97,6 +97,8 @@ player.spriteDecorator.setReversible();
 player.spriteDecorator.setLeft();
 
 var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
+otherPlayer.spriteDecorator.setReversible();
+otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;
 Rectangle.ui=ui;
 
@@ -186,6 +188,10 @@ player.eventOnMove="playerMoved";
 
         });
     
+    socket.on('changeDirection',function(){
+        otherPlayer.spriteDecorator.changeDirection();
+        });
+    
 
 function nextFrame(step) {
         context.cls();
@@ -240,6 +246,7 @@ function nextFrame(step) {
        
        if(ui.faceToLeft.now != ui.faceToLeft.prev){
         console.log(ui.faceToLeft.now, ui.faceToLeft.prev);
+            socket.emit("changeDirection");
             //debugger;
             player.spriteDecorator.changeDirection(); 
         } 
