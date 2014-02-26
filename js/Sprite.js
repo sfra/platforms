@@ -8,15 +8,29 @@ define([], function() {
             subfolder = "",
             nextFrameNumber = 0,
             i=0;
+
+        this.setImages=function(right){
+            for (i = 0; i < numberOfFrames; i += 1) {
+                images.push(new Image());
+                images[i].src = "media/images/sprites/" + url + (right==undefined?"":"/right") + "/0" + i + ".png";        
+            }
+            
         
+        }
+
+            
         if (direction === 1) {
-            subfolder = "/right";
+            this.setImages(true);
+        } else {
+            this.setImages();
         }
         
-        for (i = 0; i < numberOfFrames; i += 1) {
-            images.push(new Image());
-            images[i].src = "media/images/sprites/" + url + subfolder + "/0" + i + ".png";        
-        }
+        
+        
+        
+        
+        
+        
 
         //console.log(images);
       

@@ -38,7 +38,7 @@ var ui={
     gameSpeed: 10,
     turbo: 1,
     bullet:false,
-    bulletDirection:1,
+    bulletDirection:-1,
     changed: function(data){
         var posAccToCanvas=collision(player,context, shelfs)[0];
         var left=posAccToCanvas & 1;
@@ -222,16 +222,26 @@ function nextFrame(step) {
                 console.log(out);
             }
             
+            
             otherPlayerBullet.draw(context);
         }
         
         
 
 
-
+        
+        if (ui.left) {
+            player.sprite.setImages();
+        } else if (ui.right) {
+            player.sprite.setImages(true);
+        }
+        
+        
+        
         player.draw(context);
         
         if(ui.bullet){
+            
             Bullet.moveBullet(ui.bullet);
             };
         
