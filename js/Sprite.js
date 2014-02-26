@@ -17,7 +17,7 @@ define([], function() {
         this.setImages=function(right){
             for (i = 0; i < numberOfFrames; i += 1) {
                 images.push(new Image());
-                images[i].src = "media/images/sprites/" + url + (this.left==undefined?"":"/right") + "/0" + i + ".png";
+                images[i].src = "media/images/sprites/" + url + (direction===1?"/right":"") + "/0" + i + ".png";
                 
                 if (this.isReversible) {
                     imagesRight[i]=new Image();
