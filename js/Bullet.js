@@ -18,7 +18,7 @@ define(["Rectangle","collision"], function(Rectangle,collision){
         //if (runBullet.bulletDirection==-1) {
         //    outBullet.spriteDecorator.setLeft();
         //}
-        
+            
         return outBullet;
     }
 
