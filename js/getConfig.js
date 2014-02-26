@@ -17,7 +17,7 @@ define(["jquery"],function($){
             fill : "#556677"
         }
         
-    }
+    };
 
   
     

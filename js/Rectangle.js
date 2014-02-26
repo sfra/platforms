@@ -2,7 +2,7 @@
 
 define(["socketio","Sprite"],function(socket,Sprite){
 
-
+var i=0;
 function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     this.x=x;
     this.y=y;
@@ -32,7 +32,12 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
         console.log(this.numberOfFrames);
         
         this.sprite=new Sprite(fillArray[1],this.numberOfFrames,this.direction);
-        this.draw=drawImage.bind(this);
+        var that=this;
+        
+        //drawing it the case of Sprite must be changed
+        this.draw=function(cnv){
+             cnv.drawImage(that.sprite.getNextFrame(),that.x,that.y,that.w,that.h);};
+        //drawImage.bind(this);
     }
     
     
@@ -57,9 +62,9 @@ Rectangle.prototype.move=function(dx,dy){
     
     
     
-    var charValueOfdy= ( dy==0? 0 : dy/Math.abs(dy) ) ;
+    var charValueOfdy= ( dy===0? 0 : dy/Math.abs(dy) ) ;
     
-    for (var i=0;i<Math.abs(dy); i++) {
+    for (i=0;i<Math.abs(dy); i++) {
         this.y+=charValueOfdy;
         //console.log(Rectangle.ui);
         Rectangle.ui.changed({"type":"changed",
@@ -68,16 +73,16 @@ Rectangle.prototype.move=function(dx,dy){
     
     
     
-    var charValueOfdx= ( dx==0? 0 : dx/Math.abs(dx) ) ;
+    var charValueOfdx= ( dx===0? 0 : dx/Math.abs(dx) ) ;
     
-    for (var i=0;i<Math.abs(dx); i++) {
+    for (i=0;i<Math.abs(dx); i++) {
         this.x+=charValueOfdx;
         Rectangle.ui.changed({"type":"changed",
                               "x": this.x, "y":this.y, "w":this.w, "h":this.h  ,"dy":dy});
     }
     
     
-    if (dx!=0 || dy!=0) {
+    if (dx!==0 || dy!==0) {
         this.socket.emit(this.eventOnMove,[this.x, this.y]);
     }
     
@@ -94,11 +99,11 @@ Rectangle.prototype.draw=function(cnv){
 //    this.direction=direction;
 //    
 //}
-
-function drawImage(cnv) {
-
-    cnv.drawImage(this.sprite.getNextFrame(),this.x,this.y,this.w,this.h);
-}
+// moved to anonymous function
+//function drawImage(cnv) {
+//
+//    cnv.drawImage(this.sprite.getNextFrame(),this.x,this.y,this.w,this.h);
+//}
 
 
 return Rectangle;

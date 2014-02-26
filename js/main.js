@@ -107,7 +107,7 @@ Bullet.moveBullet.shelfs=shelfs;
 
 context.__proto__.cls=function(){
     this.clearRect(0,0,parseInt($("#cnv").css("width")),parseInt($("#cnv").css("height")));    
-}
+};
 
 context.fillStyle="#334455";
 
@@ -265,7 +265,7 @@ $("body").on("keydown",function(e){
                 //};
             
             break;
-            case "space": if(player.jumpable && ui.isJumping==false && ui.down){
+            case "space": if(player.jumpable && ui.isJumping===false && ui.down){
                 // ui.isJumping=[-2,-2,-2,-2,-2,-2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,,0,0,0,0,0,0,1,2,3]; player.jumpable=false;}; break;
                  ui.isJumping=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,1,1]; player.jumpable=false;}; break;
             case "shift":ui.turbo=2; break;

@@ -4,7 +4,9 @@
 var Server={};
 
 Server.nextFrame=function(io, sockets){
-        for (var i=0;i<sockets.length;i++) {
+        
+        var i = 0;
+        for (i=0; i < sockets.length; i++) {
             sockets[i].emit("nextFrame");
         }
     
@@ -13,9 +15,10 @@ Server.nextFrame=function(io, sockets){
 
 
 (function server() {
-    var io = require('socket.io').listen(1338);
-    var shelfs=require('./shelfs.json');
-    var sockets=[];
+    var io = require('socket.io').listen(1338),
+    shelfs=require('./shelfs.json'),
+    sockets=[],
+    sock=0; /*can sock be common?*/
 
     setInterval(function(){Server.nextFrame(io,sockets);},10 );
     
@@ -26,7 +29,7 @@ Server.nextFrame=function(io, sockets){
       socket.emit('initGame', shelfs);
       console.log(shelfs);
       socket.on('playerMoved', function (data) {
-        for (var sock=0;sock<sockets.length; sock++) {
+        for (sock=0;sock<sockets.length; sock+=1) {
             if (sockets[sock]!==socket) {
                 sockets[sock].emit('move',data);
                 
@@ -37,7 +40,7 @@ Server.nextFrame=function(io, sockets){
       
       
         socket.on('bulletFired',function(data){
-            for (var sock=0; sock<sockets.length; sock++) {
+            for (sock=0; sock<sockets.length; sock+=1) {
                 if (sockets[sock]!=socket) {
 
                     sockets[sock].emit('bulletFired',data);
@@ -50,7 +53,7 @@ Server.nextFrame=function(io, sockets){
         
         socket.on('bingo',function(){
             
-            for (var sock=0; sock<sockets.length;sock++) {
+            for (sock=0; sock<sockets.length;sock+=1) {
                 if (sockets[sock]!==socket) {
                     sockets[sock].emit('otherAreHit');
                                         console.log("bingo");
@@ -65,7 +68,7 @@ Server.nextFrame=function(io, sockets){
         
         
             socket.on('bulletMove',function(data){
-            for (var sock=0; sock<sockets.length; sock++) {
+            for (sock=0; sock<sockets.length; sock+=1) {
                 if (sockets[sock]!=socket) {
                     console.log("Fired");
                     sockets[sock].emit('bulletMove',data);
@@ -79,7 +82,7 @@ Server.nextFrame=function(io, sockets){
             
             
         socket.on('bulletDestroy',function(){
-            for (var sock=0; sock<sockets.length; sock++) {
+            for (sock=0; sock<sockets.length; sock+=1) {
                 if (sockets[sock]!=socket) {
                     console.log("Fired");
                     sockets[sock].emit('bulletDestroy');
