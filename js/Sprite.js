@@ -7,13 +7,11 @@ define([], function() {
             imagesRight = [],
             subfolder = "",
             nextFrameNumber = 0,
+            _numberOfFrames=numberOfFrames,
             i=0,
             that=this;
             
-       
-        
-        
-       // this.isReversible=false;    
+   
         this.setImages=function(right){
             for (i = 0; i < numberOfFrames; i += 1) {
                 images.push(new Image());
@@ -23,9 +21,7 @@ define([], function() {
                     imagesRight[i]=new Image();
                     imagesRight[i].src = "media/images/sprites/" + url + "/right" + "/0" + i + ".png";
                 }
-            }
-            
-        
+            }       
         }
 
             
@@ -37,22 +33,20 @@ define([], function() {
         
         
         
-        
-        
-        
-        
-
-        //console.log(images);
-      
-
-//        var nextFrameNumber = 0;
+        this.animate=function(start){
+            if (start) {
+                _numberOfFrames=numberOfFrames;
+                return;
+            }
+            _numberOfFrames=1;
+             nextFrameNumber=0;
+        };        
+            
         
         this.getNextFrame = function() {
             
           var current = nextFrameNumber;
             
-         //  console.log(images[current]);
-           
             if (nextFrameNumber + 1 === numberOfFrames) {
                 nextFrameNumber = 0;
             } else {
@@ -60,12 +54,11 @@ define([], function() {
             }
             if (that.isReversible==undefined) {
                 return images[current];
-                        console.log("is reversible");
             }
 
             return that.left?images[current]:imagesRight[current];
         };
-    }
+    };
     
     
     return Sprite;

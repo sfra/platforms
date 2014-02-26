@@ -158,8 +158,15 @@ player.eventOnMove="playerMoved";
     });
   
   socket.on('move',function(data){
+        
+      
+        
+        ui.otherPlayerPrevX=otherPlayer.x;
+       ui.otherPlayerPrevY=otherPlayer.y;
         otherPlayer.x=data[0];
         otherPlayer.y=data[1];
+        
+        
       //  console.log(shelfs);
 
     });  
@@ -181,6 +188,12 @@ player.eventOnMove="playerMoved";
         otherPlayerBullet=null;
         });
     
+    socket.on('stop',function(){
+    //    otherPlayer.sprite.animate(false);
+        ui.otherPlayerPrevX=otherPlayer.x;
+        ui.otherPlayerPrevY=otherPlayer.y;
+        });
+    
     
     socket.on('otherAreHit',function(){
                         ui.otherPlayerLife-=1;
@@ -195,7 +208,7 @@ player.eventOnMove="playerMoved";
 
 function nextFrame(step) {
         context.cls();
-
+        //otherPlayer.sprite.animate(false);
         for (var i=0;i<shelfs.length;i++) {
             shelfs[i].draw(context);
 
@@ -219,9 +232,29 @@ function nextFrame(step) {
         
         
 
+       // console.log(playerDirection);
+        if(playerDirection[0]==0 && playerDirection[1]==0){
+            socket.emit("stop")
+            }        
+
+            
+//        console.log(ui.otherPlayerPrevX-otherPlayer.x);
+        if (((ui.otherPlayerPrevX-otherPlayer.x ==0) &&
+        (ui.otherPlayerPrevY-otherPlayer.y ==0))
+            //||
+            //(Math.abs(ui.otherPlayerPrevX-otherPlayer.x) == 2)
+            //||
+            //           (Math.abs(ui.otherPlayerPrevY-otherPlayer.y) == 1)
+            
+            ){
+            otherPlayer.sprite.animate(false);
+        }
+        else if((Math.abs(ui.otherPlayerPrevX-otherPlayer.x) != 2) ||
+                (Math.abs(ui.otherPlayerPrevY-otherPlayer.y) != 1)){
+            otherPlayer.sprite.animate(true);
+        }
         
-
-
+            
         player.move(playerDirection[0],playerDirection[1]);
      
         if (otherPlayerBullet) {
@@ -233,7 +266,7 @@ function nextFrame(step) {
             
             
                 socket.emit("bingo");
-                console.log(out);
+               // console.log(out);
             }
             
             
@@ -245,7 +278,7 @@ function nextFrame(step) {
 
        
        if(ui.faceToLeft.now != ui.faceToLeft.prev){
-        console.log(ui.faceToLeft.now, ui.faceToLeft.prev);
+       // console.log(ui.faceToLeft.now, ui.faceToLeft.prev);
             socket.emit("changeDirection");
             //debugger;
             player.spriteDecorator.changeDirection(); 
