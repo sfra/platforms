@@ -1,5 +1,5 @@
 "use strict";
-define(["Rectangle","collision","Bullet","jquery"],function (Rectangle,collision,Bullet,$) {
+define(["Rectangle","helpers","collision","Bullet","jquery"],function (Rectangle,helpers,collision,Bullet,$) {
 
 
 
@@ -15,7 +15,7 @@ var KEYSTRING={
 
 
 
-var shelfs=[];
+var shelfs=[], enemies=[];
 
 
 function changeOther(x,y) {
@@ -123,33 +123,15 @@ Bullet.runBullet.socket=socket;
 player.eventOnMove="playerMoved";
     socket.on('initGame', function (data) {
     
-    for(var ob=0;ob<data.length;ob++){
-        //debugger;
-        shelfs.push(new Rectangle(data[ob].geometry[0],
-                                 data[ob].geometry[1],
-                                 data[ob].geometry[2],
-                                 data[ob].geometry[3],
-                                 data[ob].color,
-                                 data[ob].speed,0,17
-                                 ));            
-      
-    }    
-
-
-     //setInterval(
-     //            function () { nextFrame(0);}, ui.gameSpeed
-     //            );
-
-
-
-
-
-
-//     setTimeout(function(){  nextFrame(0)   },ui.gameSpeed);   
-        
-    //console.log(data);
-    //socket.emit('my other event', { my: 'data' });
+    helpers.addRectangles(shelfs,data,17);
+   
   });    
+  
+  socket.on('initEnemies',function(data){
+           helpers.addRectangles(enemies,data,17);
+     
+    });
+  
   
   var that=this;
   
@@ -213,6 +195,12 @@ function nextFrame(step) {
             shelfs[i].draw(context);
 
         }
+        
+        
+         for (var i=0;i<enemies.length;i++) {
+            enemies[i].draw(context);
+
+        }
      
         if (ui.isJumping.length>0) {
             //debugger;
@@ -257,8 +245,26 @@ function nextFrame(step) {
             
         player.move(playerDirection[0],playerDirection[1]);
      
+        
+        var out=collision(player,context,enemies);
+            if (out[0]==9 || out[0]==1 || out[1]==2) {
+
+                    ui.life-=0.025;
+                    $('#life').html(ui.life);            
+            
+            
+                socket.emit("bingo");
+               // console.log(out);
+            }
+        
+        
+        
+        
+        
+        
+        
         if (otherPlayerBullet) {
-            var out=collision(player,context,[otherPlayerBullet]);
+            out=collision(player,context,[otherPlayerBullet]);
             if (out[0]==9 || out[0]==1 || out[1]==2) {
 
                     ui.life-=1;

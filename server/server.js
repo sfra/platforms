@@ -14,6 +14,7 @@ Server.nextFrame=function(io, sockets){
 (function server() {
     var io = require('socket.io').listen(1338),
     shelfs=require('./shelfs.json'),
+    enemies=require('./enemies.json'),
     sockets=[],
     sock=0; /*can sock be common?*/
 
@@ -22,7 +23,8 @@ Server.nextFrame=function(io, sockets){
     io.sockets.on('connection', function (socket) {
       sockets.push(socket);
       socket.emit('initGame', shelfs);
-      console.log(shelfs);
+      socket.emit('initEnemies',enemies);
+      console.log(enemies);
       socket.on('playerMoved', function (data) {
         for (sock=0;sock<sockets.length; sock+=1) {
             if (sockets[sock]!==socket) {
