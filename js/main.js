@@ -3,19 +3,8 @@ define(["Rectangle","helpers","collision","Bullet","jquery"],function (Rectangle
 
 
 
-var KEYNUMBER={
-    left:37, up:38,right:39,down: 40, space: 32, shift:16, z: 90
-    
-}
-
-var KEYSTRING={
-    "37":"left","38":"up","39":"right","40":"down", "32":"space","16":"shift",
-    "90" : "z"
-}
-
-
-
-var shelfs=[], enemies=[];
+var KEYNUMBER=helpers.KEYNUMBER, KEYSTRING=helpers.KEYSTRING,
+    shelfs=[], enemies=[];
 
 
 function changeOther(x,y) {
@@ -91,17 +80,17 @@ var ui={
 
 var cnv=document.getElementById("cnv");
 var context=cnv.getContext("2d");
-
+/*settings player*/
 var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
 player.spriteDecorator.setReversible();
 player.spriteDecorator.setLeft();
-
+/*settings other player*/
 var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
 otherPlayer.spriteDecorator.setReversible();
 otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;
-Rectangle.ui=ui;
 
+Rectangle.ui=ui;
 collision.ui=ui;
 Bullet.runBullet.ui=ui;
 Bullet.moveBullet.ui=ui;
@@ -190,59 +179,9 @@ player.eventOnMove="playerMoved";
 
 function nextFrame(step) {
         context.cls();
-        //otherPlayer.sprite.animate(false);
-        for (var i=0;i<shelfs.length;i++) {
-            shelfs[i].draw(context);
-
-        }
-        
-        
-         for (var i=0;i<enemies.length;i++) {
-            enemies[i].draw(context);
-
-        }
-     
-        if (ui.isJumping.length>0) {
-            //debugger;
-            if (!ui.up) {
-                ui.isJumping=false;
-                playerDirection[1]=1;
-
-            } else{
-            playerDirection[1]=ui.isJumping.shift()*ui.turbo;
-            
-            }
-            
-        } else {
-
-            ui.isJumping=false;
-        }
-        
-        
-
-       // console.log(playerDirection);
-        if(playerDirection[0]==0 && playerDirection[1]==0){
-            socket.emit("stop")
-            }        
-
-            
-//        console.log(ui.otherPlayerPrevX-otherPlayer.x);
-        if (((ui.otherPlayerPrevX-otherPlayer.x ==0) &&
-        (ui.otherPlayerPrevY-otherPlayer.y ==0))
-            //||
-            //(Math.abs(ui.otherPlayerPrevX-otherPlayer.x) == 2)
-            //||
-            //           (Math.abs(ui.otherPlayerPrevY-otherPlayer.y) == 1)
-            
-            ){
-            otherPlayer.sprite.animate(false);
-        }
-        else if((Math.abs(ui.otherPlayerPrevX-otherPlayer.x) != 2) ||
-                (Math.abs(ui.otherPlayerPrevY-otherPlayer.y) != 1)){
-            otherPlayer.sprite.animate(true);
-        }
-        
-            
+        helpers.drawArrayed(shelfs,context);
+        helpers.drawArrayed(enemies,context);
+        helpers.setDirection(ui,socket,playerDirection,otherPlayer);
         player.move(playerDirection[0],playerDirection[1]);
      
         
@@ -254,13 +193,7 @@ function nextFrame(step) {
             
             
                 socket.emit("bingo");
-               // console.log(out);
             }
-        
-        
-        
-        
-        
         
         
         if (otherPlayerBullet) {
@@ -268,38 +201,21 @@ function nextFrame(step) {
             if (out[0]==9 || out[0]==1 || out[1]==2) {
 
                     ui.life-=1;
-                    $('#life').html(ui.life);            
-            
-            
+                    $('#life').html(ui.life);                        
                 socket.emit("bingo");
-               // console.log(out);
             }
             
             
             otherPlayerBullet.draw(context);
         }
         
-        
-
-
-       
-       if(ui.faceToLeft.now != ui.faceToLeft.prev){
-       // console.log(ui.faceToLeft.now, ui.faceToLeft.prev);
+               
+       if(ui.faceToLeft.now != ui.faceToLeft.prev){    
             socket.emit("changeDirection");
-            //debugger;
             player.spriteDecorator.changeDirection(); 
         } 
         
-        
-        //if (ui.left) {
-        // //   player.sprite.setImages();
-        //    player.sprite.checkDirection();
-        //} else if (ui.right) {
-        //    player.sprite.setImages(true);
-        //}
-        
-        
-        
+                
         player.draw(context);
         
         if(ui.bullet){
@@ -311,8 +227,6 @@ function nextFrame(step) {
 
         
         ui.changed({"type":"changed"});
-        
- //       setTimeout(function(){nextFrame(step+1)},ui.gameSpeed);
         ui.faceToLeft.prev=ui.faceToLeft.now;   
 }
 
@@ -322,35 +236,24 @@ function nextFrame(step) {
 
 
 $("body").on("keydown",function(e){
-    
-       
         switch (KEYSTRING[e.keyCode]) {
             case "left":
                 ui.left=true; ui.right=false;
-                //if (ui.bulletDirection==0) {
-                    ui.faceToLeft.prev=ui.faceToLeft.now;
-                    ui.faceToLeft.now=true;
-                    ui.bulletDirection=-1;
-                //};
+                ui.faceToLeft.prev=ui.faceToLeft.now;
+                ui.faceToLeft.now=true;
+                ui.bulletDirection=-1;
+                
                 break;
             case "right": ui.right=true; ui.left=false;
-                //if (ui.bulletDirection==0) {
-                //    debugger;
                     ui.faceToLeft.prev=ui.faceToLeft.now;
                     ui.faceToLeft.now=false;
                     ui.bulletDirection=1;
-                //};
-            
-            break;
+                break;
             case "space": if(player.jumpable && ui.isJumping===false && ui.down){
-                // ui.isJumping=[-2,-2,-2,-2,-2,-2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,,0,0,0,0,0,0,1,2,3]; player.jumpable=false;}; break;
                  ui.isJumping=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,1,1]; player.jumpable=false;}; break;
             case "shift":ui.turbo=2; break;
             case "z": ui.bullet=Bullet.runBullet(player.x,player.y,ui.bulletDirection);
-           // default : ui.faceToLeft.now=ui.faceToLeft.prev;
-            
         }
-        
         
     }).on("keyup",function(e){
     

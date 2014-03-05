@@ -8,7 +8,11 @@ requirejs.config({
                     ],
                   "socketio":[
                     "../libs/socket.io"
-                  ]
+                  ],
+                  "Bullet":["classes/Bullet"],
+                  "Rectangle":["classes/Rectangle"],
+                  "Sprite" : ["classes/Sprite"],
+                  "SpriteDecorator":["classes/SpriteDecorator"]
                     
                   }
                  

@@ -18,7 +18,50 @@ define(["Rectangle"],function(Rectangle){
             }
             
             
+        },
+        drawArrayed:function(arr,context){
+            for (var i=0,max=arr.length;i<max;i++) {
+                arr[i].draw(context);
+            }
+            
         }
+        ,
+        setDirection:function(ui,socket,playerDirection, otherPlayer){
+            if (ui.isJumping.length>0) {
+            if (!ui.up) {
+                ui.isJumping=false;
+                playerDirection[1]=1;
+            } else{
+            playerDirection[1]=ui.isJumping.shift()*ui.turbo;            
+            }            
+        } else {
+            ui.isJumping=false;
+        }
+
+        if(playerDirection[0]==0 && playerDirection[1]==0){
+            socket.emit("stop")
+            }        
+
+        if (((ui.otherPlayerPrevX-otherPlayer.x ==0) &&
+        (ui.otherPlayerPrevY-otherPlayer.y ==0))
+            
+            ){
+            otherPlayer.sprite.animate(false);
+        }
+        else if((Math.abs(ui.otherPlayerPrevX-otherPlayer.x) != 2) ||
+                (Math.abs(ui.otherPlayerPrevY-otherPlayer.y) != 1)){
+            otherPlayer.sprite.animate(true);
+        }
+        
+        },
+        KEYNUMBER:{
+            left:37, up:38,right:39,down: 40, space: 32, shift:16, z: 90
+        },
+        KEYSTRING:{
+        "37":"left","38":"up","39":"right","40":"down", "32":"space","16":"shift",
+        "90" : "z"
+        }
+        
         
         
     }
