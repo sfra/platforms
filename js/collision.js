@@ -1,8 +1,9 @@
-"use strict";
+
 
 
 define([],function(){
 
+    "use strict";
 
     function outside(rect, context, blocks) {
         var out = 0,

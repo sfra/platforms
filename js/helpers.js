@@ -3,6 +3,16 @@ define(["Rectangle"],function(Rectangle){
     
     
     return {
+        
+        ext: function(dest,src){
+            for (var prop in src) {
+                if (src.hasOwnProperty(prop)) {
+                    dest[prop]=src[prop];
+                }
+            }
+        }
+        ,
+        
         addRectangles:function(ar,data,numberOfFrames){
             
              for(var ob=0;ob<data.length;ob++){
@@ -24,9 +34,12 @@ define(["Rectangle"],function(Rectangle){
                 arr[i].draw(context);
             }
             
-        }
-        ,
-        setDirection:function(ui,socket,playerDirection, otherPlayer){
+        },
+        changeOther:function(x,y,otherPlayer){
+            otherPlayer.x=x, otherPlayer.y=y;
+        },
+        
+        setPlayerDirection:function(ui,socket,playerDirection, otherPlayer){
             if (ui.isJumping.length>0) {
             if (!ui.up) {
                 ui.isJumping=false;

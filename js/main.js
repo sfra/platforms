@@ -1,34 +1,15 @@
 "use strict";
-define(["Rectangle","helpers","collision","Bullet","jquery"],function (Rectangle,helpers,collision,Bullet,$) {
+define(["Rectangle","helpers","collision","Bullet","Ui","jquery"],function (Rectangle,helpers,collision,Bullet,Ui,$) {
 
 
 
 var KEYNUMBER=helpers.KEYNUMBER, KEYSTRING=helpers.KEYSTRING,
     shelfs=[], enemies=[];
 
-
-function changeOther(x,y) {
-    otherPlayer.x=x;
-    otherPlayer.y=y;
-}
-
-
 var playerDirection=[0,1];
+
+
 var ui={
-    life:100,
-    otherPlayerLife:100,
-    left:false,
-    right: false,
-    up: true,
-    down: true,
-    space: false,
-    isJumping: false,
-    faceToLeft:{now: true, prev: true},
-    eventFrameSync: 0,
-    gameSpeed: 10,
-    turbo: 1,
-    bullet:false,
-    bulletDirection:-1,
     changed: function(data){
         var posAccToCanvas=collision(player,context, shelfs)[0];
         var left=posAccToCanvas & 1;
@@ -40,20 +21,20 @@ var ui={
         
         if (left) {
             
-            ui.left=false;
+            this.left=false;
         }
         if (right) {
            
-            ui.right=false;
+            this.right=false;
         }
         
         if (top) {
             
-            ui.up=false;
+            this.up=false;
         }
         
         if (bottom) {
-            ui.down=true;
+            this.down=true;
             playerDirection[1]=0;
             player.jumpable=true;
         } else if(!player.jumpable) {
@@ -61,25 +42,34 @@ var ui={
            
 
          } else{
-             ui.down=false;
+             this.down=false;
             
          }
         
-        if (ui.left) {
+        if (this.left) {
             playerDirection[0]=-player.speed.right;
         }
         
-        if (ui.right) {
+        if (this.right) {
             playerDirection[0]=player.speed.right;
         }
 
     }    
 };
 
+helpers.ext(ui,Ui);
 
 
+/*settings scene*/
 var cnv=document.getElementById("cnv");
 var context=cnv.getContext("2d");
+context.__proto__.cls=function(){
+    this.clearRect(0,0,parseInt($("#cnv").css("width")),parseInt($("#cnv").css("height")));    
+};
+
+context.fillStyle="#334455";
+
+
 /*settings player*/
 var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
 player.spriteDecorator.setReversible();
@@ -89,7 +79,7 @@ var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},
 otherPlayer.spriteDecorator.setReversible();
 otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;
-
+/*injections*/
 Rectangle.ui=ui;
 collision.ui=ui;
 Bullet.runBullet.ui=ui;
@@ -99,11 +89,6 @@ Bullet.moveBullet.shelfs=shelfs;
 
 
 
-context.__proto__.cls=function(){
-    this.clearRect(0,0,parseInt($("#cnv").css("width")),parseInt($("#cnv").css("height")));    
-};
-
-context.fillStyle="#334455";
 
 
 var socket = io.connect('http://localhost:1338');
@@ -129,26 +114,13 @@ player.eventOnMove="playerMoved";
     });
   
   socket.on('move',function(data){
-        
-      
-        
         ui.otherPlayerPrevX=otherPlayer.x;
-       ui.otherPlayerPrevY=otherPlayer.y;
-        otherPlayer.x=data[0];
-        otherPlayer.y=data[1];
-        
-        
-      //  console.log(shelfs);
+        ui.otherPlayerPrevY=otherPlayer.y;
+        helpers.changeOther(data[0],data[1],otherPlayer);
 
     });  
     socket.on('bulletFired',function(data){
-       // debugger;
-        otherPlayerBullet=new Rectangle(data[0],data[1]+3,20,10,"img:otherPlayerBullet",{right:3,down:0},data[2],5);
-        //otherPlayerBullet.spriteDecorator.setReversible();
-        //
-        //if (data[1]==-1) {
-        //    otherPlayerBullet.spriteDecorator.setLeft();
-        //}
+         otherPlayerBullet=new Rectangle(data[0],data[1]+3,20,10,"img:otherPlayerBullet",{right:3,down:0},data[2],5);
         
     });
     socket.on('bulletMove',function(data){
@@ -181,20 +153,14 @@ function nextFrame(step) {
         context.cls();
         helpers.drawArrayed(shelfs,context);
         helpers.drawArrayed(enemies,context);
-        helpers.setDirection(ui,socket,playerDirection,otherPlayer);
+        helpers.setPlayerDirection(ui,socket,playerDirection,otherPlayer);
         player.move(playerDirection[0],playerDirection[1]);
-     
-        
         var out=collision(player,context,enemies);
             if (out[0]==9 || out[0]==1 || out[1]==2) {
-
                     ui.life-=0.025;
                     $('#life').html(ui.life);            
-            
-            
                 socket.emit("bingo");
             }
-        
         
         if (otherPlayerBullet) {
             out=collision(player,context,[otherPlayerBullet]);
@@ -221,7 +187,7 @@ function nextFrame(step) {
         if(ui.bullet){
             
             Bullet.moveBullet(ui.bullet);
-            };
+        }
         
         otherPlayer.draw(context);
 
