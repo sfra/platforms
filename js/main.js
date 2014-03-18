@@ -82,9 +82,11 @@ player.spriteDecorator.setReversible();
 player.spriteDecorator.setLeft();
 /*settings other player*/
 //rectFactory.setMovementParameters(0,0,6,-1);
-var ootherPlayer=rectFactory.create({x:140,y:10,w:20,h:20,img:"otherPlayer"});
 
-var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
+rectFactory.overrideMovementParameters({speed: {right:0, down:0}});
+var otherPlayer=rectFactory.create({x:140,y:10,w:20,h:20,img:"otherPlayer"});
+//var ootherPlayer=rectFactory.create({x:140,y:10,w:20,h:20,img:"otherPlayer"});
+//var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
 otherPlayer.spriteDecorator.setReversible();
 otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;

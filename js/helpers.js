@@ -99,23 +99,34 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
             
             
             var create=function(ob){
-                var rect=new Rectangle(ob.x,ob.y,ob.w,ob.h,/*will be removed*/"img:"+ob.img,speed,direction,numberOfFrames);
+                var rect=new Rectangle(ob.x,ob.y,ob.w,ob.h);//,/*will be removed*/"img:"+ob.img,{right:speed.right, down:speed.down},direction,numberOfFrames);
                debugger;
                 if (ob.img!=undefined) {
                     
+                    rect.rewriteDraw();
                     rect.setSprite(new Sprite(ob.img,numberOfFrames,direction));
                     rect.setSpriteDecorator(new SpriteDecorator(rect.sprite));
                 } else {
                     rect.color=ob.color;
                 }
                 
-                rect.speed=speed;
+                rect.speed={right: speed.right, down:speed.down};
                 console.log(rect);
                 return rect;
             };
             
+            var overrideMovementParameters=function(ob){
+                speed=(ob.speed===undefined)?speed:ob.speed;
+                numberOfFrames=(ob.numberOfFrames===undefined)?numberOfFrames:ob.numberOfFrames;
+                direction=(ob.direction===undefined)?direction:ob.direction;
+
+            }
             
-            return { setMovementParameters: setMovementParameters, create:create};
+            
+            return {    setMovementParameters: setMovementParameters,
+                        overrideMovementParameters:overrideMovementParameters,
+                        create:create
+                    };
             
     
         }

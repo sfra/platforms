@@ -42,14 +42,7 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
         this.sprite=new Sprite(fillArray[1],this.numberOfFrames,this.direction);
         this.spriteDecorator=new SpriteDecorator(this.sprite);
         var that=this;
-        this.draw=function(cnv){
-            try {
-             cnv.drawImage(that.sprite.getNextFrame(),that.x,that.y,that.w,that.h)   
-            } catch(e) {
-                console.log(this.sprite);
-                console.log(e);
-            };
-        };
+        this.rewriteDraw();
     } } catch(e){
         console.log(e);
         } 
@@ -57,6 +50,15 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     this.eventOnMove="";
     this.socket={emit:function(){}};
 }
+
+Rectangle.prototype.rewriteDraw=function(){
+    var that=this;
+            this.draw=function(cnv){
+            cnv.drawImage(that.sprite.getNextFrame(),that.x,that.y,that.w,that.h);
+            };
+        };
+    
+
 
 Rectangle.prototype.move=function(dx,dy){
 
