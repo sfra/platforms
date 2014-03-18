@@ -31,22 +31,7 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     if (fill===undefined) {
         fill="";
     }
-    
-    
-    try {
-        
- 
-    
-    var fillArray=fill.split(":");
-    if (fillArray[0]=='img') {
-        this.sprite=new Sprite(fillArray[1],this.numberOfFrames,this.direction);
-        this.spriteDecorator=new SpriteDecorator(this.sprite);
-        var that=this;
-        this.rewriteDraw();
-    } } catch(e){
-        console.log(e);
-        } 
-    
+
     this.eventOnMove="";
     this.socket={emit:function(){}};
 }

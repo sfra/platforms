@@ -71,22 +71,14 @@ context.fillStyle="#334455";
 
 
 /*settings player*/
-//var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
 var rectFactory= new helpers.rectangleFatory();
 rectFactory.setMovementParameters(2,2,6,-1);
 var player=rectFactory.create({x:140,y:10,w:20,h:20,img:"player"});
-//var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
-//player.setSprite(new Sprite("player",player.numberOfFrames,player.direction))
 player.setSpriteDecorator(new SpriteDecorator(player.sprite));
 player.spriteDecorator.setReversible();
 player.spriteDecorator.setLeft();
-/*settings other player*/
-//rectFactory.setMovementParameters(0,0,6,-1);
-
 rectFactory.overrideMovementParameters({speed: {right:0, down:0}});
 var otherPlayer=rectFactory.create({x:140,y:10,w:20,h:20,img:"otherPlayer"});
-//var ootherPlayer=rectFactory.create({x:140,y:10,w:20,h:20,img:"otherPlayer"});
-//var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
 otherPlayer.spriteDecorator.setReversible();
 otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;
@@ -131,7 +123,12 @@ player.eventOnMove="playerMoved";
 
     });  
     socket.on('bulletFired',function(data){
-         otherPlayerBullet=new Rectangle(data[0],data[1]+3,20,10,"img:otherPlayerBullet",{right:3,down:0},data[2],5);
+        
+        
+        rectFactory.setMovementParameters(3,0,5,data[2]);
+        otherPlayerBullet=rectFactory.create({x:data[0],y:data[1],w:20,h:10,img:"otherPlayerBullet"});
+        
+//         otherPlayerBullet=new Rectangle(data[0],data[1]+3,20,10,"img:otherPlayerBullet",{right:3,down:0},data[2],5);
         
     });
     socket.on('bulletMove',function(data){

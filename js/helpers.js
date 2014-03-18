@@ -13,22 +13,32 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
         }
         ,
         
-        addRectangles:function(ar,data,numberOfFrames){
+        addRectangles:function(arr,data,numberOfFrames){
+            var rectFatory=new this.rectangleFatory();
+            rectFatory.setMovementParameters(0,0,numberOfFrames,0);
+            var color=null;
+            var rectParametes=null;
+            
             
              for(var ob=0;ob<data.length;ob++){
-        //debugger;
-            ar.push(new Rectangle(data[ob].geometry[0],
-                                 data[ob].geometry[1],
-                                 data[ob].geometry[2],
-                                 data[ob].geometry[3],
-                                 data[ob].color,
-                                 data[ob].speed,0,numberOfFrames
-                                 ));            
+            rectParametes = {x:data[ob].geometry[0],
+                                        y:data[ob].geometry[1],
+                                        w:data[ob].geometry[2],
+                                        h:data[ob].geometry[3]
+                            };
+        
+            if (data[ob].color[0]==="#") {
+                this.ext(rectParametes,{color:data[ob].color});
+            } else{
+                this.ext(rectParametes,{img: data[ob].color.split(":")[1]});
+            }
+        
+            arr.push(rectFatory.create(rectParametes));
       
             }
-            
-            
         },
+        
+        
         drawArrayed:function(arr,context){
             for (var i=0,max=arr.length;i<max;i++) {
                 arr[i].draw(context);
@@ -76,15 +86,8 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
         },
         
         rectangleFatory: function(){
-            var speed={};
-            var numberOfFrames;
-            var direction;
-            /**
-             **@param {object}
-             *or */
-            /*@param{Number} right
-             *@param{Number} down
-             **/
+            var speed={}, numberOfFrames, direction;
+         
             var setMovementParameters=function(){
                 if (typeof arguments[0]==='object') {
                     speed.right=arguments[0].right;
@@ -99,8 +102,7 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
             
             
             var create=function(ob){
-                var rect=new Rectangle(ob.x,ob.y,ob.w,ob.h);//,/*will be removed*/"img:"+ob.img,{right:speed.right, down:speed.down},direction,numberOfFrames);
-               debugger;
+                var rect=new Rectangle(ob.x,ob.y,ob.w,ob.h);
                 if (ob.img!=undefined) {
                     
                     rect.rewriteDraw();
