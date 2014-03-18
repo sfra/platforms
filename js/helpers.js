@@ -1,5 +1,5 @@
 'use strict';
-define(["Rectangle"],function(Rectangle){
+define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,SpriteDecorator){
     
     
     return {
@@ -73,6 +73,51 @@ define(["Rectangle"],function(Rectangle){
         KEYSTRING:{
         "37":"left","38":"up","39":"right","40":"down", "32":"space","16":"shift",
         "90" : "z"
+        },
+        
+        rectangleFatory: function(){
+            var speed={};
+            var numberOfFrames;
+            var direction;
+            /**
+             **@param {object}
+             *or */
+            /*@param{Number} right
+             *@param{Number} down
+             **/
+            var setMovementParameters=function(){
+                if (typeof arguments[0]==='object') {
+                    speed.right=arguments[0].right;
+                    speed.down=arguments[0].down;
+                    numberOfFrames=arguments[1];
+                    direction=arguments[2];
+                   
+                }
+                speed.right=arguments[0]; speed.down=arguments[1]; numberOfFrames=arguments[2];
+                direction=arguments[3];
+            };
+            
+            
+            var create=function(ob){
+                var rect=new Rectangle(ob.x,ob.y,ob.w,ob.h,/*will be removed*/"img:"+ob.img,speed,direction,numberOfFrames);
+               debugger;
+                if (ob.img!=undefined) {
+                    
+                    rect.setSprite(new Sprite(ob.img,numberOfFrames,direction));
+                    rect.setSpriteDecorator(new SpriteDecorator(rect.sprite));
+                } else {
+                    rect.color=ob.color;
+                }
+                
+                rect.speed=speed;
+                console.log(rect);
+                return rect;
+            };
+            
+            
+            return { setMovementParameters: setMovementParameters, create:create};
+            
+    
         }
         
         

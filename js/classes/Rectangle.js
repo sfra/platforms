@@ -8,10 +8,16 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     this.y=y;
     this.w=w;
     this.h=h;
-    this.speed=speed;
+//    this.speed=speed || 0;
 
+    if (speed) {
+        this.speed=speed;
+    }
+    
     if (direction) {
         this.direction=direction;
+    } else {
+        this.direction=-1;
     }
     if (numberOfFrames) {
         this.numberOfFrames=numberOfFrames;
@@ -22,6 +28,15 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     } else {
         this.color="#000000";
     }
+    if (fill===undefined) {
+        fill="";
+    }
+    
+    
+    try {
+        
+ 
+    
     var fillArray=fill.split(":");
     if (fillArray[0]=='img') {
         this.sprite=new Sprite(fillArray[1],this.numberOfFrames,this.direction);
@@ -35,7 +50,9 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
                 console.log(e);
             };
         };
-    }
+    } } catch(e){
+        console.log(e);
+        } 
     
     this.eventOnMove="";
     this.socket={emit:function(){}};
@@ -75,6 +92,16 @@ Rectangle.prototype.draw=function(cnv){
 }
 Rectangle.prototype.spriteChangeDirection=function(){
     this.spriteDecorator.changeDirection();
+}
+
+
+Rectangle.prototype.setSprite=function(sprite){
+    this.sprite=sprite;   
+    
+}
+
+Rectangle.prototype.setSpriteDecorator=function(spriteDecorator){
+    this.spriteDecorator=spriteDecorator;
 }
 
 return Rectangle;

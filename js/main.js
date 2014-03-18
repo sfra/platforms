@@ -1,5 +1,5 @@
 "use strict";
-define(["Rectangle","helpers","collision","Bullet","Ui","jquery"],function (Rectangle,helpers,collision,Bullet,Ui,$) {
+define(["Rectangle","Sprite","SpriteDecorator","helpers","collision","Bullet","Ui","jquery"],function (Rectangle,Sprite,SpriteDecorator,helpers,collision,Bullet,Ui,$) {
 
 
 
@@ -71,10 +71,19 @@ context.fillStyle="#334455";
 
 
 /*settings player*/
-var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
+//var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
+var rectFactory= new helpers.rectangleFatory();
+rectFactory.setMovementParameters(2,2,6,-1);
+var player=rectFactory.create({x:140,y:10,w:20,h:20,img:"player"});
+//var player=new Rectangle(140,10,20,20,"img:player",{right:2,down:2},-1,6);
+//player.setSprite(new Sprite("player",player.numberOfFrames,player.direction))
+player.setSpriteDecorator(new SpriteDecorator(player.sprite));
 player.spriteDecorator.setReversible();
 player.spriteDecorator.setLeft();
 /*settings other player*/
+//rectFactory.setMovementParameters(0,0,6,-1);
+var ootherPlayer=rectFactory.create({x:140,y:10,w:20,h:20,img:"otherPlayer"});
+
 var otherPlayer= new Rectangle(140,10,20,20, "img:otherPlayer",{right:0,down:0},-1,6);
 otherPlayer.spriteDecorator.setReversible();
 otherPlayer.spriteDecorator.setLeft();
