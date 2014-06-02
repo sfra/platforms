@@ -24,7 +24,17 @@ Server.nextFrame=function(io, sockets){
       sockets.push(socket);
       socket.emit('initGame', shelfs);
       socket.emit('initEnemies',enemies);
-      console.log(enemies);
+        
+      socket.on('rrun',function(){
+        for (sock=0;sock<sockets.length;sock++) {
+                if (sockets[sock]!==socket) {
+                     sockets[sock].emit('rrun');
+                }
+        }
+        
+        });  
+  
+        
       socket.on('playerMoved', function (data) {
         for (sock=0;sock<sockets.length; sock+=1) {
             if (sockets[sock]!==socket) {

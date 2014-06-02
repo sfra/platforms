@@ -95,7 +95,10 @@ Bullet.moveBullet.shelfs=shelfs;
 
 
 var socket = io.connect('http://localhost:1338');
+socket.emit('rrun');
 player.socket=socket;
+
+
 Bullet.runBullet.socket=socket;
 player.eventOnMove="playerMoved";
     socket.on('initGame', function (data) {
@@ -111,7 +114,9 @@ player.eventOnMove="playerMoved";
   
   
   var that=this;
-  
+  socket.on('rrun',function(){
+    otherPlayer.spriteDecorator.setLeft();
+    });
   socket.on("nextFrame",function(){
         nextFrame(0);
     });
@@ -244,6 +249,8 @@ $("body").on("keydown",function(e){
 
 
 });
+
+
 
 
 

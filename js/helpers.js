@@ -113,7 +113,7 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
                 }
                 
                 rect.speed={right: speed.right, down:speed.down};
-                console.log(rect);
+             //   console.log(rect);
                 return rect;
             };
             
