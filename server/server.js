@@ -11,19 +11,23 @@ Server.nextFrame=function(io, sockets){
     
     };
     
-Server.emitToOthers=function(socket,sockets,eventSend){
-                
+
         
-        return function(data){
+        
+Server.dispatch=function(socket,sockets,eventReceived,eventToSend){
+        var _eventToSend=eventToSend!==undefined?eventToSend:eventReceived;
+        socket.on(eventReceived,function(data){
                 for (var sock=0;sock<sockets.length; sock+=1) {
-                      if (sockets[sock]!==socket) {
-                          sockets[sock].emit(eventSend,data);               
-                      } 
-                }        
-        }
+                        if (sockets[sock]!=socket) {
+                                sockets[sock].emit(_eventToSend,data);
+                        }
+                        
+                        
+
+                }
+                });
         
-        
-        };
+        };        
         
 
 
@@ -37,119 +41,18 @@ Server.emitToOthers=function(socket,sockets,eventSend){
     setInterval(function(){Server.nextFrame(io,sockets);},10 );
     
     io.sockets.on('connection', function (socket) {
-      sockets.push(socket);
-      socket.emit('initGame', shelfs);
-      socket.emit('initEnemies',enemies);
-        
-      //socket.on('rrun',function(){
-      //  for (sock=0;sock<sockets.length;sock++) {
-      //          if (sockets[sock]!==socket) {
-      //               sockets[sock].emit('rrun');
-      //          }
-      //  }
-      //  
-      //  });  
-  
-        socket.on('rrun', Server.emitToOthers(socket,sockets,'rrun'));
-        socket.on('playerMoved',Server.emitToOthers(socket,sockets,'move'));
-        socket.on('changeDirection',Server.emitToOthers(socket,sockets,'changeDirection'));      
-        socket.on('stop',Server.emitToOthers(socket,sockets,'stop'));
-        socket.on('bulletFired',Server.emitToOthers(socket,sockets,'bulletFired'));
-        socket.on('bingo',Server.emitToOthers(socket,sockets,'otherAreHit'));
-        socket.on('fire',Server.emitToOthers(socket,sockets,'otherInFire'));
-        socket.on('bulletMove',Server.emitToOthers(socket,sockets,'bulletMove'));
-        socket.on('bulletDestroy',Server.emitToOthers(socket,sockets,'bulletDestroy'));
-
-
-
-
-
-
-        //socket.on('fire',function(){
-        //        
-        //        for (sock=0; sock<sokets.length; sock+=1) {
-        //               if (sokets[sock]!=socket) {
-        //                    sockets[sock].emit('otherInFire');
-        //               }
-        //        }
-        //        
-        //        });
-        //
-        
-        //socket.on('bulletMove',function(data){
-        //    for (sock=0; sock<sockets.length; sock+=1) {
-        //        if (sockets[sock]!=socket) {
-        //            console.log("Fired");
-        //            sockets[sock].emit('bulletMove',data);
-        //        }
-        //    }
-        //});
-           
-        //socket.on('bulletDestroy',function(){
-        //    for (sock=0; sock<sockets.length; sock+=1) {
-        //        if (sockets[sock]!=socket) {
-        //            console.log("Fired");
-        //            sockets[sock].emit('bulletDestroy');
-        //        }
-        //    }
-        //});
-
-
-
-
-      //socket.on('playerMoved', function (data) {
-      //  for (sock=0;sock<sockets.length; sock+=1) {
-      //      if (sockets[sock]!==socket) {
-      //          sockets[sock].emit('move',data);               
-      //      } 
-      //  }     
-      //});
-      
-      
-        //socket.on('bingo',function(){
-        //    
-        //    for (sock=0; sock<sockets.length;sock+=1) {
-        //        if (sockets[sock]!==socket) {
-        //            sockets[sock].emit('otherAreHit');
-        //                                console.log("bingo");
-        //        }
-        //    }
-        //});
-      
-      
-      //socket.on('changeDirection',function(data){
-      //      for (sock=0; sock<sockets.length; sock+=1) {
-      //          if (sockets[sock]!=socket) {
-      //              sockets[sock].emit('changeDirection',data);
-      //          }
-      //      }
-      //  
-      //  
-      //  });
-      
-          
-        //socket.on('stop',function(data){
-        //    for (sock=0; sock<sockets.length; sock+=1) {
-        //        if (sockets[sock]!=socket) {  
-        //            sockets[sock].emit('stop');
-        //        }
-        //    }
-        //});
-      
-        //
-        //socket.on('bulletFired',function(data){
-        //    for (sock=0; sock<sockets.length; sock+=1) {
-        //        if (sockets[sock]!=socket) {
-        //
-        //            sockets[sock].emit('bulletFired',data);
-        //        }
-        //    }
-        //});
-        
-        
-      
-        
-        
+        sockets.push(socket);
+        socket.emit('initGame', shelfs);
+        socket.emit('initEnemies',enemies);
+        Server.dispatch(socket,sockets,'rrun','rrun');
+        Server.dispatch(socket,sockets,'playerMoved','move');
+        Server.dispatch(socket,sockets,'changeDirection');
+        Server.dispatch(socket,sockets,'stop');
+        Server.dispatch(socket,sockets,'bulletFired');
+        Server.dispatch(socket,sockets,'bingo','otherAreHit');
+        Server.dispatch(socket,sockets,'fire','otherInFire');
+        Server.dispatch(socket,sockets,'bulletMove');
+        Server.dispatch(socket,sockets,'bulletDestroy');
 
 
       
