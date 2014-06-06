@@ -161,6 +161,12 @@ player.eventOnMove="playerMoved";
         otherPlayer.spriteDecorator.changeDirection();
         });
     
+    socket.on('otherInFire',function(){
+            ui.otherPlayerLife-=0.025;
+            $('#otherPlayerLife').html(ui.otherPlayerLife);
+        
+        
+        });
 
 function nextFrame(step) {
         context.cls();
@@ -172,7 +178,7 @@ function nextFrame(step) {
             if (out[0]==9 || out[0]==1 || out[1]==2) {
                     ui.life-=0.025;
                     $('#life').html(ui.life);            
-                socket.emit("bingo");
+                socket.emit("fire");
             }
         
         if (otherPlayerBullet) {
