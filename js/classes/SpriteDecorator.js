@@ -13,9 +13,9 @@ define(["Sprite"],function(Sprite){
           
         }
         
-        this.setLeft=function(){
-                _sprt.left=true;
-        };
+        //this.setLeft=function(){
+        //        _sprt.left=true;
+        //};
             
         
         this.setLeft=function(){
