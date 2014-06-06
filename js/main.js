@@ -10,6 +10,8 @@ var playerDirection=[0,1];
 
 
 var ui={
+    endOfGame: false,
+    lastMessage: '',
     changed: function(data){
         var posAccToCanvas=collision(player,context, shelfs)[0];
         var left=posAccToCanvas & 1;
@@ -167,15 +169,37 @@ player.eventOnMove="playerMoved";
         
         
         });
-
+    
+    
+    socket.on('theEnd',function(data){
+        ui.endOfGame=true;
+        ui.lastMessage=data?'You won':'You lose';
+        
+        });
 function nextFrame(step) {
+        
+        if (ui.endOfGame) {
+            alert(ui.lastMessage);
+           // delete socket;
+            socket.disconnect();
+            return;
+        }
+        
+        
+
+        if (ui.life<=0) {
+           //alert(ui.life);
+            socket.emit('endOfLife');
+        }
+    
         context.cls();
         helpers.drawArrayed(shelfs,context);
         helpers.drawArrayed(enemies,context);
         helpers.setPlayerDirection(ui,socket,playerDirection,otherPlayer);
         player.move(playerDirection[0],playerDirection[1]);
-        var out=collision(player,context,enemies);
+        var out=collision(player,context,enemies,true);
             if (out[0]==9 || out[0]==1 || out[1]==2) {
+                
                     ui.life-=0.025;
                     $('#life').html(ui.life);            
                 socket.emit("fire");

@@ -3,11 +3,46 @@
 
 var Server={};
 
+Server.sockets=[];
+Server.endOfGame=false;
+
 Server.nextFrame=function(io, sockets){    
+        
         var i = 0;
-        for (i=0; i < sockets.length; i++) {
-            sockets[i].emit("nextFrame");
+        
+        
+        if (Server.endOfGame) {
+                
+                for (i=0; i<sockets.length;i++) {
+                        if (sockets[i].living) {
+                                sockets[i].emit('theEnd',true);
+                        } else {
+                                sockets[i].emit('theEnd',false);
+                        }
+                };
+                
+        
         }
+        
+        
+        for (i=0; i < sockets.length; i++) {
+            
+            sockets[i].emit("nextFrame");
+        };
+        
+      
+        if (Server.endOfGame) {
+                
+
+                
+               for (i=0;i<sockets.length; i++) {
+                        Server.sockets[i].end();
+               };
+               
+               Server.sockets=[];
+               
+        }
+        
     
     };
     
@@ -35,12 +70,13 @@ Server.dispatch=function(socket,sockets,eventReceived,eventToSend){
     var io = require('socket.io').listen(1338),
     shelfs=require('./shelfs.json'),
     enemies=require('./enemies.json'),
-    sockets=[],
+    sockets=Server.sockets,
     sock=0; /*can sock be common?*/
 
     setInterval(function(){Server.nextFrame(io,sockets);},10 );
     
     io.sockets.on('connection', function (socket) {
+        socket.living=true;
         sockets.push(socket);
         socket.emit('initGame', shelfs);
         socket.emit('initEnemies',enemies);
@@ -53,6 +89,13 @@ Server.dispatch=function(socket,sockets,eventReceived,eventToSend){
         Server.dispatch(socket,sockets,'fire','otherInFire');
         Server.dispatch(socket,sockets,'bulletMove');
         Server.dispatch(socket,sockets,'bulletDestroy');
+        
+        socket.on('endOfLife',function(data){
+                socket.living=false;
+                Server.endOfGame=true;
+                
+        
+        });
 
 
       
