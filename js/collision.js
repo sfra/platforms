@@ -5,8 +5,19 @@ define(['outOfCanvas'],function(outOfCanvas){
 
     "use strict";
 
+    /**
+    * Checks if Rectangle collides with any Rectangle in blocks
+    *
+    * @method outside
+    * @param rect {Rectangle} 
+    * @param context {Object} 
+    * @param blocks {Array}
+    * @param notCanvas {Boolean} optional. Check collision with boundaries of canvas
+    * @return {Array} in which 0-element indicates collision
+    */
+    
     function outside(rect, context, blocks,notCanvas) {
-        var out = !notCanvas?outOfCanvas(rect, context, blocks)[0]:0,
+        var out = !notCanvas?outOfCanvas(rect, context)[0]:0,
         i=0,
         theRest=1000; /*unused, so far*/
         

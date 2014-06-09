@@ -5,7 +5,19 @@ define([],function(){
 
     "use strict";
 
-    function outside(rect, context, blocks) {
+    /**
+    * Checks if Rectangle collides with boundaries of context
+    *
+    * @method outside
+    * @param rect {Rectangle} 
+    * @param context {Object}
+    * @param notCanvas {Boolean} optional. Check collision with boundaries of canvas
+    * @return {Array} in which 0-element indicates collision
+    */
+    
+    
+    
+    function outside(rect, context) {
         var out = 0,
         i=0,
         theRest=1000; /*unused, so far*/
