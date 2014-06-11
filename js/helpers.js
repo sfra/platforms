@@ -89,14 +89,10 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
             var speed={}, numberOfFrames, direction;
          
             var setMovementParameters=function(){
-                if (typeof arguments[0]==='object') {
-                    speed.right=arguments[0].right;
-                    speed.down=arguments[0].down;
-                    numberOfFrames=arguments[1];
-                    direction=arguments[2];
-                   
-                }
-                speed.right=arguments[0]; speed.down=arguments[1]; numberOfFrames=arguments[2];
+                
+                speed.right=arguments[0];
+                speed.down=arguments[1];
+                numberOfFrames=arguments[2];
                 direction=arguments[3];
             };
             
