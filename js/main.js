@@ -156,7 +156,6 @@ player.eventOnMove="playerMoved";
     socket.on('otherAreHit',function(){
                         ui.otherPlayerLife-=1;
                 $('#otherPlayerLife').html(ui.otherPlayerLife);
-
         });
     
     socket.on('changeDirection',function(){
@@ -165,17 +164,18 @@ player.eventOnMove="playerMoved";
     
     socket.on('otherInFire',function(){
             ui.otherPlayerLife-=0.025;
-            $('#otherPlayerLife').html(ui.otherPlayerLife);
-        
-        
+            $('#otherPlayerLife').html(ui.otherPlayerLife);       
         });
     
     
     socket.on('theEnd',function(data){
         ui.endOfGame=true;
-        ui.lastMessage=data?'You won':'You lose';
-        
+        ui.lastMessage=data?'You won':'You lose';        
         });
+    
+    
+    
+    
 function nextFrame(step) {
         
         if (ui.endOfGame) {
@@ -188,7 +188,6 @@ function nextFrame(step) {
         
 
         if (ui.life<=0) {
-           //alert(ui.life);
             socket.emit('endOfLife');
         }
     
@@ -197,24 +196,23 @@ function nextFrame(step) {
         helpers.drawArrayed(enemies,context);
         helpers.setPlayerDirection(ui,socket,playerDirection,otherPlayer);
         player.move(playerDirection[0],playerDirection[1]);
+    
         var out=collision(player,context,enemies,true);
-            if (out[0]==9 || out[0]==1 || out[1]==2) {
+        
+        if (out[0]==9 || out[0]==1 || out[1]==2) {
                 
-                    ui.life-=0.025;
-                    $('#life').html(ui.life);            
-                socket.emit("fire");
-            }
+            ui.life-=0.025;
+            $('#life').html(ui.life);            
+            socket.emit("fire");
+        }
         
         if (otherPlayerBullet) {
             out=collision(player,context,[otherPlayerBullet]);
             if (out[0]==9 || out[0]==1 || out[1]==2) {
-
-                    ui.life-=1;
-                    $('#life').html(ui.life);                        
+                ui.life-=1;
+                $('#life').html(ui.life);                        
                 socket.emit("bingo");
             }
-            
-            
             otherPlayerBullet.draw(context);
         }
         
@@ -228,7 +226,6 @@ function nextFrame(step) {
         player.draw(context);
         
         if(ui.bullet){
-            
             Bullet.moveBullet(ui.bullet);
         }
         

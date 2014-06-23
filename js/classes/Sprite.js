@@ -1,7 +1,12 @@
 "use strict";
 
 define([], function() {
-    
+    /**
+     * Sprite class
+     * 
+     * @class Sprite
+     * @constructor
+     */
     function Sprite(url, numberOfFrames, direction) {        
         var images = [],
             imagesRight = [],
@@ -11,7 +16,12 @@ define([], function() {
             i=0,
             that=this;
             
-   
+       
+        /**
+         * Fills images array of Images objecs
+         * @method setImages
+         * @param right {boolean} if is set to true, then take images oriented to the right
+         */
         this.setImages=function(right){
             for (i = 0; i < numberOfFrames; i += 1) {
                 images.push(new Image());
@@ -32,7 +42,11 @@ define([], function() {
         }
         
         
-        
+        /**
+         * Start or prepare animation
+         * @method animate
+         * @param start {boolean} if is set to true, animation immediately start
+         */ 
         this.animate=function(start){
             if (start) {
                 _numberOfFrames=numberOfFrames;
@@ -42,7 +56,10 @@ define([], function() {
              nextFrameNumber=0;
         };        
             
-        
+        /**
+         * Change the frame
+         * @method getNextFrame
+         */
         this.getNextFrame = function() {
             
           var current = nextFrameNumber;

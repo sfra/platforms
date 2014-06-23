@@ -2,26 +2,40 @@
 
 define(["Sprite"],function(Sprite){
     
-    
+    /**
+     * SpriteDecorator class
+     *
+     * @class SpriteDecorator
+     * @constructor
+     */
     var  SpriteDecorator=function(sprt){
         var _sprt=sprt;
         
-        
+        /**
+         * Enable Sprite _sprt to be reversed
+         *
+         * @method setReversible
+         */
         this.setReversible=function(){
             _sprt.isReversible=true;
             _sprt.setImages(true);
           
         }
         
-        //this.setLeft=function(){
-        //        _sprt.left=true;
-        //};
-            
-        
+        /**
+         * Change Sprite _sprt orientation to the left
+         *
+         * @method setLeft
+         */
         this.setLeft=function(){
                 _sprt.left=true;
             };
         
+                /**
+         * Reversr Sprite _sprt direction if is defined
+         *
+         * @method setLeft
+         */
         this.changeDirection=function(){
                 if (_sprt.left!=undefined ) {
                     _sprt.left=!_sprt.left;

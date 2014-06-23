@@ -1,9 +1,11 @@
-
-
-
 define([],function(){
 
     "use strict";
+    
+    
+    
+    
+    
 
     /**
     * Checks if Rectangle collides with boundaries of context
@@ -13,10 +15,7 @@ define([],function(){
     * @param context {Object}
     * @param notCanvas {Boolean} optional. Check collision with boundaries of canvas
     * @return {Array} in which 0-element indicates collision
-    */
-    
-    
-    
+    */            
     function outside(rect, context) {
         var out = 0,
         i=0,

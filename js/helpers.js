@@ -20,12 +20,12 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
             var rectParametes=null;
             
             
-             for(var ob=0;ob<data.length;ob++){
-            rectParametes = {x:data[ob].geometry[0],
-                                        y:data[ob].geometry[1],
-                                        w:data[ob].geometry[2],
-                                        h:data[ob].geometry[3]
-                            };
+            for(var ob=0;ob<data.length;ob++){
+                rectParametes = {   x:data[ob].geometry[0],
+                                    y:data[ob].geometry[1],
+                                    w:data[ob].geometry[2],
+                                    h:data[ob].geometry[3]
+                                };
         
             if (data[ob].color[0]==="#") {
                 this.ext(rectParametes,{color:data[ob].color});
