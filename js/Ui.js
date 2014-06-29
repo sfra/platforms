@@ -11,10 +11,10 @@ define([],function(){
     isJumping: false,
     faceToLeft:{now: true, prev: true},
     eventFrameSync: 0,
-    gameSpeed: 10,
+    gameSpeed: 15,
     turbo: 1,
     bullet:false,
-    bulletDirection:-1,    
+    bulletDirection:-1
         
     }    
         

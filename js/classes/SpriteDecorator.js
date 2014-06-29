@@ -32,9 +32,9 @@ define(["Sprite"],function(Sprite){
             };
         
                 /**
-         * Reversr Sprite _sprt direction if is defined
+         * Reverse Sprite _sprt direction if is defined
          *
-         * @method setLeft
+         * @method changeDirection
          */
         this.changeDirection=function(){
                 if (_sprt.left!=undefined ) {

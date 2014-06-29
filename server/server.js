@@ -73,7 +73,7 @@ Server.dispatch=function(socket,sockets,eventReceived,eventToSend){
     sockets=Server.sockets,
     sock=0; /*can sock be common?*/
 
-    setInterval(function(){Server.nextFrame(io,sockets);},10 );
+    setInterval(function(){Server.nextFrame(io,sockets);},15 );
     
     io.sockets.on('connection', function (socket) {
         socket.living=true;

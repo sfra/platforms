@@ -48,6 +48,7 @@ define([], function() {
          * @param start {boolean} if is set to true, animation immediately start
          */ 
         this.animate=function(start){
+            
             if (start) {
                 _numberOfFrames=numberOfFrames;
                 return;

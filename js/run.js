@@ -11,6 +11,7 @@ requirejs.config({
                   ],
                   "Bullet":["classes/Bullet"],
                   "Rectangle":["classes/Rectangle"],
+                  "RectangleDecorator" : ["classes/RectangleDecorator"],
                   "Sprite" : ["classes/Sprite"],
                   "SpriteDecorator":["classes/SpriteDecorator"]
                     

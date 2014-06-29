@@ -1,10 +1,10 @@
 "use strict";
-define(["Rectangle","Sprite","SpriteDecorator","helpers","collision","Bullet","Ui","jquery"],function (Rectangle,Sprite,SpriteDecorator,helpers,collision,Bullet,Ui,$) {
+define(["Rectangle","RectangleDecorator","Sprite","SpriteDecorator","helpers","collision","Bullet","Ui","jquery"],function (Rectangle,RectangleDecorator,Sprite,SpriteDecorator,helpers,collision,Bullet,Ui,$) {
 
 
 
 var KEYNUMBER=helpers.KEYNUMBER, KEYSTRING=helpers.KEYSTRING,
-    shelfs=[], enemies=[];
+    shelfs=[], enemies=[], temporalSprites=[];
 
 var playerDirection=[0,1];
 
@@ -84,6 +84,13 @@ var otherPlayer=rectFactory.create({x:140,y:10,w:20,h:20,img:"otherPlayer"});
 otherPlayer.spriteDecorator.setReversible();
 otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;
+
+  rectFactory.setMovementParameters(0,0,11,0);
+        var bulletDestroyed=rectFactory.create({x:0,y:0,w:20,h:20,
+                                                   img:"bulletDestroyed"});
+        var rectDec=new RectangleDecorator(bulletDestroyed);
+        bulletDestroyed.makeTemporal(11);
+
 /*injections*/
 Rectangle.ui=ui;
 collision.ui=ui;
@@ -91,7 +98,7 @@ Bullet.runBullet.ui=ui;
 Bullet.moveBullet.ui=ui;
 Bullet.moveBullet.context=context;
 Bullet.moveBullet.shelfs=shelfs;
-
+helpers.temporalAnimations.context=context;
 
 
 
@@ -143,6 +150,15 @@ player.eventOnMove="playerMoved";
         });
     
     socket.on('bulletDestroy',function(){
+        
+      
+        
+        
+        bulletDestroyed.x=otherPlayerBullet.x;
+            bulletDestroyed.y=otherPlayerBullet.y-10;
+            helpers.temporalAnimations.addOne(bulletDestroyed);
+        
+        
         otherPlayerBullet=null;
         });
     
@@ -222,6 +238,8 @@ function nextFrame(step) {
             player.spriteDecorator.changeDirection(); 
         } 
         
+        
+        helpers.temporalAnimations.nextState();
                 
         player.draw(context);
         
