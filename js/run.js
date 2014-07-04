@@ -3,11 +3,11 @@ requirejs.config({
 
                  paths:{
                   "jquery":[
-                  "../libs/jquery-2.1.0.min",
+                  "../node_modules/jquery/dist/jquery.min",
                   "http://code.jquery.com/jquery-2.1.0.min"                  
                     ],
                   "socketio":[
-                    "../libs/socket.io"
+                    "../node_modules/socket.io/node_modules/socket.io-client/dist/socket.io"
                   ],
                   "Bullet":["classes/Bullet"],
                   "Rectangle":["classes/Rectangle"],
