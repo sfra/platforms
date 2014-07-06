@@ -86,12 +86,13 @@ otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;
 
 /*settings bullet destroyed*/
-rectFactory.setMovementParameters(0,0,11,0);
+rectFactory.setMovementParameters(0,0,19,0);
 var bulletDestroyed=rectFactory.create({x:0,y:0,w:20,h:20,
                                                    img:"bulletDestroyed"});
 var rectDec=new RectangleDecorator(bulletDestroyed);
 //bulletDestroyed.makeTemporal(11);
-
+ui.bulletDestroyed=bulletDestroyed;
+ui.rectDec=rectDec;
 /*injections*/
 Rectangle.ui=ui;
 collision.ui=ui;

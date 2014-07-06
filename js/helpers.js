@@ -132,7 +132,7 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
             context: null,
             currentAnimations:[],
             addOne: function(rect){
-                rect.makeTemporal(11);
+                rect.makeTemporal(19);
                 this.currentAnimations.push(rect); },
             nextState: function(){
                 var i,
