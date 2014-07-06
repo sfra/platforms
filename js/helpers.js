@@ -109,7 +109,6 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
                 }
                 
                 rect.speed={right: speed.right, down:speed.down};
-             //   console.log(rect);
                 return rect;
             };
             
@@ -132,17 +131,26 @@ define(["Rectangle","Sprite","SpriteDecorator"],function(Rectangle,Sprite,Sprite
         temporalAnimations: {
             context: null,
             currentAnimations:[],
-            addOne: function(rect){ this.currentAnimations.push(rect); },
+            addOne: function(rect){
+                rect.makeTemporal(11);
+                this.currentAnimations.push(rect); },
             nextState: function(){
-                for(var i=0, max=this.currentAnimations.length; i<max;){
-                    if (this.currentAnimations[i].times>0) {
-                        debugger;
+                var i,
+                max=this.currentAnimations.length;
+                for(i=0; i<max;){
+                //debugger;
+                    if (this.currentAnimations[i]===undefined){
+                        i+=1;
+                        continue;
+                    }
+                    
+                    if (this.currentAnimations[i].getTimes()>0) {
+
                         this.currentAnimations[i].draw(this.context);
                         i+1;
                     } else {
-                        this.currentAnimations.splice(i,1)[0].makeTemporal(11);
-                        debugger;
-                        
+                        this.currentAnimations[i].sprite.rewindFrames();
+                        this.currentAnimations.splice(i,1);//[0].makeTemporal(11);
                     }
                 } 
            }

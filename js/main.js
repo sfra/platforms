@@ -85,11 +85,12 @@ otherPlayer.spriteDecorator.setReversible();
 otherPlayer.spriteDecorator.setLeft();
 var otherPlayerBullet=null;
 
-  rectFactory.setMovementParameters(0,0,11,0);
-        var bulletDestroyed=rectFactory.create({x:0,y:0,w:20,h:20,
+/*settings bullet destroyed*/
+rectFactory.setMovementParameters(0,0,11,0);
+var bulletDestroyed=rectFactory.create({x:0,y:0,w:20,h:20,
                                                    img:"bulletDestroyed"});
-        var rectDec=new RectangleDecorator(bulletDestroyed);
-        bulletDestroyed.makeTemporal(11);
+var rectDec=new RectangleDecorator(bulletDestroyed);
+//bulletDestroyed.makeTemporal(11);
 
 /*injections*/
 Rectangle.ui=ui;
@@ -196,7 +197,7 @@ function nextFrame(step) {
         
         if (ui.endOfGame) {
             alert(ui.lastMessage);
-           // delete socket;
+
             socket.disconnect();
             return;
         }
@@ -240,6 +241,11 @@ function nextFrame(step) {
         
         
         helpers.temporalAnimations.nextState();
+        
+        //if (typeof helpers.temporalAnimations !==undefined) {
+        //            console.log(helpers.temporalAnimations.currentAnimations);
+        //}
+
                 
         player.draw(context);
         

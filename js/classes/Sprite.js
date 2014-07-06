@@ -15,8 +15,9 @@ define([], function() {
             _numberOfFrames=numberOfFrames,
             i=0,
             that=this;
-            
-       
+      this.images=images;
+      this.currentImage=null;
+ 
         /**
          * Fills images array of Images objecs
          * @method setImages
@@ -26,6 +27,9 @@ define([], function() {
             for (i = 0; i < numberOfFrames; i += 1) {
                 images.push(new Image());
                 images[i].src = "media/images/sprites/" + url + (direction===1?"/right":"") + "/0" + i + ".png";
+
+                
+                
                 
                 if (this.isReversible) {
                     imagesRight[i]=new Image();
@@ -76,6 +80,14 @@ define([], function() {
 
             return that.left?images[current]:imagesRight[current];
         };
+        
+        
+        this.rewindFrames=function(){
+            //debugger;
+            nextFrameNumber=0;
+        
+        };
+        
     };
     
     
