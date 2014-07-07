@@ -5,6 +5,19 @@ define(["Rectangle","RectangleDecorator","collision","helpers"], function(Rectan
     rectDec;
             
     
+    function explosionSound() {
+        if (explosionSound.explosionNr===undefined || explosionSound.explosionNr>4) {
+            explosionSound.explosionNr=0;
+        };
+       var bum=document.getElementById('bum'+explosionSound.explosionNr);
+       bum.play();
+
+       explosionSound.explosionNr+=1;
+        
+    }
+    
+    
+    
     function runBullet(x, y, bulletDirection) {
 
         if (runBullet.ui.bullet) {
@@ -38,6 +51,8 @@ define(["Rectangle","RectangleDecorator","collision","helpers"], function(Rectan
             helpers.temporalAnimations.addOne(bulletDestroyed);
             
             delete moveBullet.ui.bullet;
+        explosionSound();
+//            bum.play();
             moveBullet.ui.bullet = false;
 
 
