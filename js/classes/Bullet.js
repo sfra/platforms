@@ -2,20 +2,40 @@
 define(["Rectangle","RectangleDecorator","collision","helpers"], function(Rectangle,RectangleDecorator,collision,helpers){
     var rectFactory=new helpers.rectangleFatory(),
     bulletDestroyed,
-    rectDec;
-            
+    rectDec,
     
-    function explosionSound() {
-        if (explosionSound.explosionNr===undefined || explosionSound.explosionNr>4) {
-            explosionSound.explosionNr=0;
-        };
-       var bum=document.getElementById('bum'+explosionSound.explosionNr);
-       bum.play();
+    sounds={
 
-       explosionSound.explosionNr+=1;
-        
-    }
+        explosion: function(){
+                if (this.explosion.explosionNr===undefined || this.explosion.explosionNr>4) {
+                this.explosion.explosionNr=0;
+                };
+                var bum=document.getElementById('bum'+this.explosion.explosionNr);
+                bum.play();
+                this.explosion.explosionNr+=1;            
+        },
+        flyingBombs:[],
+        stopFlying: function(){
+            var currentFly=this.flyingBombs.shift();
+            setTimeout(function(){
+                currentFly.pause();
+                currentFly.currentTime=0;
+            },300);
     
+        
+        },
+        bombFly: function(){
+                if (this.bombFly.flyNr===undefined || this.bombFly.flyNr>1) {
+                this.bombFly.flyNr=0;
+                };
+                var bombFly=document.getElementById('bombFly'+this.bombFly.flyNr);
+                bombFly.play();
+                this.flyingBombs.push(bombFly);
+                this.bombFly.flyNr+=1;
+        }
+    };
+
+        
     
     
     function runBullet(x, y, bulletDirection) {
@@ -23,7 +43,8 @@ define(["Rectangle","RectangleDecorator","collision","helpers"], function(Rectan
         if (runBullet.ui.bullet) {
             return runBullet.ui.bullet;
         }
-
+ //       bombFly.play();
+        sounds.bombFly();
         bulletDestroyed=runBullet.ui.bulletDestroyed;
         rectDec=runBullet.ui.rectDec;
         var startModAccToPlayer=runBullet.ui.faceToLeft.now?-1:1;
@@ -51,7 +72,14 @@ define(["Rectangle","RectangleDecorator","collision","helpers"], function(Rectan
             helpers.temporalAnimations.addOne(bulletDestroyed);
             
             delete moveBullet.ui.bullet;
-        explosionSound();
+//        explosionSound();
+        sounds.explosion();      
+        sounds.stopFlying();
+        //setTimeout(function(){
+        //            bombFly.pause();
+        //bombFly.currentTime=0;
+        //    },300);
+
 //            bum.play();
             moveBullet.ui.bullet = false;
 
