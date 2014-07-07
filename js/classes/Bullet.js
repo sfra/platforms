@@ -2,7 +2,7 @@
 define(["Rectangle","RectangleDecorator","collision","helpers"], function(Rectangle,RectangleDecorator,collision,helpers){
     var rectFactory=new helpers.rectangleFatory(),
     bulletDestroyed,
-    rectDec;;
+    rectDec;
             
     
     function runBullet(x, y, bulletDirection) {
@@ -32,7 +32,7 @@ define(["Rectangle","RectangleDecorator","collision","helpers"], function(Rectan
         var posAccToShelfs = collision(bullet, moveBullet.context, moveBullet.shelfs)[0];
         
         if (posAccToShelfs) {
-               runBullet.socket.emit("bulletDestroy");
+            runBullet.socket.emit("bulletDestroy");
             bulletDestroyed.x=bullet.x;
             bulletDestroyed.y=bullet.y-10;
             helpers.temporalAnimations.addOne(bulletDestroyed);

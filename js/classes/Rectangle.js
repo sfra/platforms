@@ -52,6 +52,7 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     Rectangle.prototype.rewriteDraw=function(){
         var that=this;
         this.draw=function(cnv){
+
             cnv.drawImage(that.sprite.getNextFrame(),that.x,that.y,that.w,that.h);
         };
     };
