@@ -32,11 +32,21 @@ define(['outOfCanvas'],function(outOfCanvas){
         }
         
         
-        if (rect.x+rect.w > blocks[i].x &&  rect.x < blocks[i].x+blocks[i].w && rect.y===blocks[i].y+blocks[i].h) {
-            out|=4; /*top*/
+        //if (rect.x+rect.w > blocks[i].x &&  rect.x < blocks[i].x+blocks[i].w && rect.y===blocks[i].y+blocks[i].h) {
+        //    out|=4; /*top*/
+        //} else{
+        //    outside.ui.up = true;
+        //}
+        
+        
+           if (rect.x+rect.w > blocks[i].x &&  rect.x < blocks[i].x+blocks[i].w && (rect.y===blocks[i].y+blocks[i].h || rect.y-1===blocks[i].y+blocks[i].h)) {
+            out|=16; /*top*/
         } else{
             outside.ui.up = true;
         }
+        
+        
+        
         
         if ( rect.y + rect.h > blocks[i].y  && rect.y < blocks[i].y+ blocks[i].h && rect.x+rect.w===blocks[i].x  ) {
             out|=2; /*right*/

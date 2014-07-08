@@ -16,11 +16,11 @@ define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers
         endOfGame: false,
         lastMessage: '',
         changed: function(data) {
-            var posAccToCanvas = collision(player, context, shelfs)[0];
-            var left = posAccToCanvas & 1;
-            var right = posAccToCanvas & 2;
-            var top = posAccToCanvas & 4;
-            var bottom = posAccToCanvas & 8;
+            var posAccToCanvasShelfs = collision(player, context, shelfs)[0];
+            var left = posAccToCanvasShelfs & 1;
+            var right = posAccToCanvasShelfs & 2;
+            var top = (posAccToCanvasShelfs & 4) | (posAccToCanvasShelfs& 16) ;
+            var bottom = posAccToCanvasShelfs & 8;
 
             playerDirection = [0, 1];
 

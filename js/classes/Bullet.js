@@ -63,9 +63,9 @@ define(['Rectangle','RectangleDecorator','collision','helpers','sounds'], functi
     function moveBullet(bullet) {
                 
         
-        var posAccToShelfs = collision(bullet, moveBullet.context, moveBullet.shelfs)[0];
+        var posAccToCanvasShelfs = collision(bullet, moveBullet.context, moveBullet.shelfs)[0];
         
-        if (posAccToShelfs) {
+        if (posAccToCanvasShelfs) {
             runBullet.socket.emit("bulletDestroy");
             bulletDestroyed.x=bullet.x;
             bulletDestroyed.y=bullet.y-10;

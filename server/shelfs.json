@@ -1,4 +1,5 @@
 [
+    {"geometry": [170,30,40,10],"color":"#112233","speed":{"right":0,"down":0}},
     {"geometry": [120,150,40,10],"color":"#112233","speed":{"right":0,"down":0}},
     {"geometry": [160,220,100,10],"color":"#ffffff","speed":{"right":0,"down":0}},
     {"geometry": [190,180,100,10],"color":"#ff22ff","speed":{"right":0,"down":0}},
