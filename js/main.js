@@ -1,5 +1,8 @@
 "use strict";
-define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers", "collision", "Bullet", "Ui", "jquery"], function(Rectangle, RectangleDecorator, Sprite, SpriteDecorator, helpers, collision, Bullet, Ui, $) {
+define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers", "collision",
+        "Bullet", "Ui", "jquery", 'sounds'],
+       function(Rectangle, RectangleDecorator, Sprite, SpriteDecorator, helpers, collision,
+                Bullet, Ui, $, sounds) {
 
 
 
@@ -144,7 +147,7 @@ define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers
 
         rectFactory.setMovementParameters(3, 0, 5, data[2]);
         otherPlayerBullet = rectFactory.create({x: data[0], y: data[1], w: 20, h: 10, img: "otherPlayerBullet"});
-
+sounds.bombFly();
 //         otherPlayerBullet=new Rectangle(data[0],data[1]+3,20,10,"img:otherPlayerBullet",{right:3,down:0},data[2],5);
 
     });
@@ -160,7 +163,9 @@ define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers
         bulletDestroyed.x = otherPlayerBullet.x;
         bulletDestroyed.y = otherPlayerBullet.y - 10;
         helpers.temporalAnimations.addOne(bulletDestroyed);
-
+        sounds.explosion();      
+        sounds.stopFlying();
+        
 
         otherPlayerBullet = null;
     });
