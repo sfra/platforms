@@ -1,39 +1,12 @@
 
-define(['Rectangle','RectangleDecorator','collision','helpers','sounds'], function(Rectangle,RectangleDecorator,collision,helpers, sounds){
+define(['Rectangle','RectangleDecorator','collision','helpers','sounds','Ui'], function(Rectangle,RectangleDecorator,collision,helpers, sounds,Ui){
     var rectFactory=new helpers.rectangleFatory(),
     bulletDestroyed,
-    rectDec;
+    rectDec,
+    bulletFallingPhase=0;
+
     
-    //sounds={
-    //
-    //    explosion: function(){
-    //            if (this.explosion.explosionNr===undefined || this.explosion.explosionNr>4) {
-    //            this.explosion.explosionNr=0;
-    //            };
-    //            var bum=document.getElementById('bum'+this.explosion.explosionNr);
-    //            bum.play();
-    //            this.explosion.explosionNr+=1;            
-    //    },
-    //    flyingBombs:[],
-    //    stopFlying: function(){
-    //        var currentFly=this.flyingBombs.shift();
-    //        setTimeout(function(){
-    //            currentFly.pause();
-    //            currentFly.currentTime=0;
-    //        },300);
-    //
-    //    
-    //    },
-    //    bombFly: function(){
-    //            if (this.bombFly.flyNr===undefined || this.bombFly.flyNr>1) {
-    //            this.bombFly.flyNr=0;
-    //            };
-    //            var bombFly=document.getElementById('bombFly'+this.bombFly.flyNr);
-    //            bombFly.play();
-    //            this.flyingBombs.push(bombFly);
-    //            this.bombFly.flyNr+=1;
-    //    }
-    //};
+    
 
         
     
@@ -53,7 +26,7 @@ define(['Rectangle','RectangleDecorator','collision','helpers','sounds'], functi
         runBullet.socket.emit("bulletFired", [x+startModAccToPlayer*10, y, runBullet.ui.bulletDirection]);
 
         rectFactory.setMovementParameters(3,0,5,runBullet.bulletDirection);
-        var outB=rectFactory.create({x:x+startModAccToPlayer*10, y:y + 5, w:20, h:10, img:"bullet"});
+        var outB=rectFactory.create({x:x+startModAccToPlayer*10, y:y-5, w:20, h:10, img:"bullet"});
         return outB;
     }
     
@@ -70,9 +43,11 @@ define(['Rectangle','RectangleDecorator','collision','helpers','sounds'], functi
             bulletDestroyed.x=bullet.x;
             bulletDestroyed.y=bullet.y-10;
             helpers.temporalAnimations.addOne(bulletDestroyed);
-            
+            bulletFallingPhase=0;
             delete moveBullet.ui.bullet;
 //        explosionSound();
+//        if(bulletFalling.length>1) {bullet.y+=100; bulletFalling.shift();};        
+
         sounds.explosion();      
         sounds.stopFlying();
         //setTimeout(function(){
@@ -87,8 +62,12 @@ define(['Rectangle','RectangleDecorator','collision','helpers','sounds'], functi
             return;
         }
     
-        runBullet.socket.emit("bulletMove", bullet.x);
-        bullet.move(runBullet.bulletDirection * 3, 0);
+        runBullet.socket.emit("bulletMove", {x:bullet.x,y:bullet.y});
+        bullet.move(runBullet.bulletDirection * 3, Ui.bulletFalling[bulletFallingPhase]);
+        if (bulletFallingPhase<Ui.bulletFalling.length-1) {
+            bulletFallingPhase+=1;
+        }
+  
         moveBullet.ui.bullet.draw(moveBullet.context);
     }
 

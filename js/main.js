@@ -10,7 +10,7 @@ define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers
             shelfs = [], enemies = [], temporalSprites = [], that = this;
 
     var playerDirection = [0, 1];
-
+    
 
     var ui = {
         endOfGame: false,
@@ -152,7 +152,8 @@ sounds.bombFly();
 
     });
     socket.on('bulletMove', function(data) {
-        otherPlayerBullet.x = data;
+        otherPlayerBullet.x = data.x;
+        otherPlayerBullet.y = data.y;
     });
 
     socket.on('bulletDestroy', function() {
@@ -292,7 +293,7 @@ sounds.bombFly();
                 break;
             case "space":
                 if (player.jumpable && ui.isJumping === false && ui.down) {
-                    ui.isJumping = [-4, -4, -4, -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3];
+                    ui.isJumping = [-5, -4, -4, -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 1, 1, 1 ,1 ,1];
                     player.jumpable = false;
                 }
                 ;
