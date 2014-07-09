@@ -180,7 +180,7 @@ sounds.bombFly();
 
     socket.on('otherAreHit', function() {
         ui.otherPlayerLife -= 1;
-        $('#otherPlayerLife').html(ui.otherPlayerLife);
+      //  $('#otherPlayerLife').html(ui.otherPlayerLife);
     });
 
     socket.on('changeDirection', function() {
@@ -189,7 +189,7 @@ sounds.bombFly();
 
     socket.on('otherInFire', function() {
         ui.otherPlayerLife -= 0.025;
-        $('#otherPlayerLife').html(ui.otherPlayerLife);
+        //$('#otherPlayerLife').html(parseInt(ui.otherPlayerLife,10));
     });
 
 
@@ -217,6 +217,14 @@ sounds.bombFly();
         }
 
         context.cls();
+        
+        context.fillStyle = '#111';
+        context.font = 'bold 15px sans-serif';
+        context.textBaseline = 'bottom';
+        context.fillText('Life: '+parseInt(ui.life,10), 460, 20);
+        context.fillStyle = '#f00';
+        context.fillText('Enemy\'s life: '+parseInt(ui.otherPlayerLife,10), 400, 40);
+        
         helpers.temporalAnimations.nextState();
         helpers.drawArrayed(shelfs, context);
         helpers.drawArrayed(enemies, context);
@@ -228,7 +236,7 @@ sounds.bombFly();
         if (out[0] == 9 || out[0] == 1 || out[1] == 2) {
 
             ui.life -= 0.025;
-            $('#life').html(ui.life);
+           // $('#life').html(parseInt(ui.life));
             socket.emit("fire");
         }
 
@@ -236,7 +244,7 @@ sounds.bombFly();
             out = collision(player, context, [otherPlayerBullet]);
             if (out[0] == 9 || out[0] == 1 || out[1] == 2) {
                 ui.life -= 1;
-                $('#life').html(ui.life);
+             //   $('#life').html(ui.life);
                 socket.emit("bingo");
             }
             otherPlayerBullet.draw(context);
