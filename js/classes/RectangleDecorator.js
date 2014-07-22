@@ -5,15 +5,12 @@ define(['Rectangle'],function(Rectangle){
         var _rect = rect;
         var _times;
         var oldDraw=_rect.draw.bind(_rect);
+        
+        
         _rect.makeTemporal = function(times){
-            
             _times=times;
-            
-
             var that=this;
             _rect.draw=function(cnv){
-                
-    //            debugger;
                 if (_times>0) {
                     _times -= 1;
                     oldDraw(cnv);
@@ -28,10 +25,11 @@ define(['Rectangle'],function(Rectangle){
         
         _rect.setTimes=function(times){
           _times=times;
-        }
-    
-    
-    
+        };
+        
+
+
+
     };
     
     

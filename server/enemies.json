@@ -7,7 +7,7 @@
         {"geometry": [170,470,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
         
         
-        {"geometry": [130,350,20,20],"color":"img:flame","speed":{"right":0,"down":0}},
+        {"geometry": [130,340,20,20],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [730,190,10,30],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [790,190,10,30],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [850,190,10,30],"color":"img:flame","speed":{"right":0,"down":0}}

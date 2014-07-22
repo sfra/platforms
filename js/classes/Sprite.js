@@ -88,6 +88,10 @@ define([], function() {
         
         };
         
+        this.getImages=function(){
+            return images;
+        }
+        
     };
     
     
