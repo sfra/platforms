@@ -1,6 +1,7 @@
 define([],function(){
     return {
-        
+    endOfGame: false,
+    lastMessage: '',    
     life:100,
     otherPlayerLife:100,
     left:false,

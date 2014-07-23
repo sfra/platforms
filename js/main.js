@@ -13,8 +13,7 @@ define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers
     
 
     var ui = {
-        endOfGame: false,
-        lastMessage: '',
+      
         changed: function(data) {
             var posAccToCanvasShelfs = collision(player, context, shelfs)[0];
             var left = posAccToCanvasShelfs & 1;
@@ -93,13 +92,13 @@ define(["Rectangle", "RectangleDecorator", "Sprite", "SpriteDecorator", "helpers
     var bulletDestroyed = rectFactory.create({x: 0, y: 0, w: 20, h: 20,
         img: "bulletDestroyed"});
     var rectDec = new RectangleDecorator(bulletDestroyed);
-    ui.bulletDestroyed = bulletDestroyed;
-    ui.rectDec = rectDec;
+    Ui.bulletDestroyed = bulletDestroyed;
+    Ui.rectDec = rectDec;
     /*injections*/
     Rectangle.ui = ui;
     collision.ui = ui;
-    Bullet.runBullet.ui = ui;
-    Bullet.moveBullet.ui = ui;
+    //Bullet.runBullet.ui = ui;
+   // Bullet.moveBullet.ui = ui;
     Bullet.moveBullet.context = context;
     Bullet.moveBullet.shelfs = shelfs;
     helpers.temporalAnimations.context = context;
@@ -251,7 +250,7 @@ sounds.bombFly();
         }
 
 
-        if (ui.faceToLeft.now != ui.faceToLeft.prev) {
+        if (Ui.faceToLeft.now != Ui.faceToLeft.prev) {
             socket.emit("changeDirection");
             player.spriteDecorator.changeDirection();
         }
@@ -266,15 +265,15 @@ sounds.bombFly();
 
         player.draw(context);
 
-        if (ui.bullet) {
-            Bullet.moveBullet(ui.bullet);
+        if (Ui.bullet) {
+            Bullet.moveBullet(Ui.bullet);
         }
 
         otherPlayer.draw(context);
 
 
         ui.changed({"type": "changed"});
-        ui.faceToLeft.prev = ui.faceToLeft.now;
+        Ui.faceToLeft.prev = Ui.faceToLeft.now;
     }
 
 
@@ -287,17 +286,17 @@ sounds.bombFly();
             case "left":
                 ui.left = true;
                 ui.right = false;
-                ui.faceToLeft.prev = ui.faceToLeft.now;
-                ui.faceToLeft.now = true;
-                ui.bulletDirection = -1;
+                Ui.faceToLeft.prev = Ui.faceToLeft.now;
+                Ui.faceToLeft.now = true;
+                Ui.bulletDirection = -1;
 
                 break;
             case "right":
                 ui.right = true;
                 ui.left = false;
-                ui.faceToLeft.prev = ui.faceToLeft.now;
-                ui.faceToLeft.now = false;
-                ui.bulletDirection = 1;
+                Ui.faceToLeft.prev = Ui.faceToLeft.now;
+                Ui.faceToLeft.now = false;
+                Ui.bulletDirection = 1;
                 break;
             case "space":
                 if (player.jumpable && ui.isJumping === false && ui.down) {
@@ -310,7 +309,7 @@ sounds.bombFly();
                 ui.turbo = 2;
                 break;
             case "z":
-                ui.bullet = Bullet.runBullet(player.x, player.y, ui.bulletDirection);
+                Ui.bullet = Bullet.runBullet(player.x, player.y, Ui.bulletDirection);
         }
 
     }).on("keyup", function(e) {
