@@ -1,7 +1,7 @@
 
 
 
-define(['outOfCanvas'],function(outOfCanvas){
+define(['outOfCanvas','Ui'],function(outOfCanvas,Ui){
 
     "use strict";
 
@@ -16,8 +16,8 @@ define(['outOfCanvas'],function(outOfCanvas){
     * @return {Array} in which 0-element indicates collision
     */
     
-    function outside(rect, context, blocks,notCanvas) {
-        var out = !notCanvas?outOfCanvas(rect, context)[0]:0,
+    function outside(rect, blocks,notCanvas) {
+        var out = !notCanvas?outOfCanvas(rect)[0]:0,
         i=0,
         theRest=1000; /*unused, so far*/
         
@@ -42,7 +42,7 @@ define(['outOfCanvas'],function(outOfCanvas){
            if (rect.x+rect.w > blocks[i].x &&  rect.x < blocks[i].x+blocks[i].w && (rect.y>=blocks[i].y+blocks[i].h &&  rect.y-5<=blocks[i].y+blocks[i].h)) {
             out|=16; /*top*/
         } else{
-            outside.ui.up = true;
+            Ui.up = true;
         }
         
         

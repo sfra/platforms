@@ -1,5 +1,5 @@
 'use strict';
-define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator'], function(Rectangle,RectangleDecoratorPattern, Sprite, SpriteDecorator) {
+define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator','Ui'], function(Rectangle,RectangleDecoratorPattern, Sprite, SpriteDecorator,Ui) {
 
 
     return {
@@ -9,8 +9,9 @@ define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator'], f
                     dest[prop] = src[prop];
                 }
             }
-        }
-        ,
+        },
+        
+        
         addRectangles: function(arr, data, numberOfFrames) {
             var rectFatory = new this.rectangleFatory();
             rectFatory.setMovementParameters(0, 0, numberOfFrames, 0);
@@ -47,39 +48,39 @@ define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator'], f
 
             }
         },
-        drawArrayed: function(arr, context) {
+        drawArrayed: function(arr) {
             for (var i = 0, max = arr.length; i < max; i++) {
-                arr[i].draw(context);
+                arr[i].draw(Ui.context);
             }
 
         },
         changeOther: function(x, y, otherPlayer) {
             otherPlayer.x = x, otherPlayer.y = y;
         },
-        setPlayerDirection: function(ui, socket, playerDirection, otherPlayer) {
-            if (ui.isJumping.length > 0) {
-                if (!ui.up) {
-                    ui.isJumping = false;
+        setPlayerDirection: function(socket, playerDirection, otherPlayer) {
+            if (Ui.isJumping.length > 0) {
+                if (!Ui.up) {
+                    Ui.isJumping = false;
                     playerDirection[1] = 1;
                 } else {
-                    playerDirection[1] = ui.isJumping.shift() * ui.turbo;
+                    playerDirection[1] = Ui.isJumping.shift() * Ui.turbo;
                 }
             } else {
-                ui.isJumping = false;
+                Ui.isJumping = false;
             }
 
             if (playerDirection[0] == 0 && playerDirection[1] == 0) {
                 socket.emit('stop')
             }
 
-            if (((ui.otherPlayerPrevX - otherPlayer.x == 0) &&
-                    (ui.otherPlayerPrevY - otherPlayer.y == 0))
+            if (((Ui.otherPlayerPrevX - otherPlayer.x == 0) &&
+                    (Ui.otherPlayerPrevY - otherPlayer.y == 0))
 
                     ) {
                 otherPlayer.sprite.animate(false);
             }
-            else if ((Math.abs(ui.otherPlayerPrevX - otherPlayer.x) != 2) ||
-                    (Math.abs(ui.otherPlayerPrevY - otherPlayer.y) != 1)) {
+            else if ((Math.abs(Ui.otherPlayerPrevX - otherPlayer.x) != 2) ||
+                    (Math.abs(Ui.otherPlayerPrevY - otherPlayer.y) != 1)) {
                 otherPlayer.sprite.animate(true);
             }
 
@@ -142,7 +143,6 @@ define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator'], f
 
         },
         temporalAnimations: {
-            context: null,
             currentAnimations: [],
             addOne: function(rect) {
                 rect.makeTemporal(19);
@@ -159,7 +159,7 @@ define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator'], f
                     }
 
                     if (this.currentAnimations[i].getTimes() > 0) {
-                        this.currentAnimations[i].draw(this.context);
+                        this.currentAnimations[i].draw(Ui.context);
                         i += 1;
                     } else {
                         this.currentAnimations[i].sprite.rewindFrames();

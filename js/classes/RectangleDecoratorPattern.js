@@ -19,9 +19,7 @@ define(['Rectangle'],function(Rectangle){
             
             
         }
-        //var cnv = document.getElementById("cnv");
-        //var context = cnv.getContext("2d"); 
-        //
+
         });
       
       

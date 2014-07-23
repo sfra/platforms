@@ -1,9 +1,14 @@
 define([],function(){
     return {
+    context: null,
     endOfGame: false,
     lastMessage: '',    
     life:100,
+    player:null,
+    playerDirection: [0,1],
     otherPlayerLife:100,
+    shelfs:[],
+    enemies: [],
     left:false,
     right: false,
     up: true,

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["socketio","Sprite","SpriteDecorator"],function(socket,Sprite,SpriteDecorator){
+define(["socketio","Sprite","SpriteDecorator","changed"],function(socket,Sprite,SpriteDecorator,changed){
 
 var i=0;
 /**
@@ -71,7 +71,7 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     
         for (i=0;i<Math.abs(dy); i++) {
             this.y+=charValueOfdy;
-            Rectangle.ui.changed({"type":"changed",
+            changed({"type":"changed",
                               "x": this.x, "y":this.y, "w":this.w, "h":this.h  ,"dy":dy});
         }
     
@@ -79,7 +79,7 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     
         for (i=0;i<Math.abs(dx); i++) {
             this.x+=charValueOfdx;
-            Rectangle.ui.changed({"type":"changed",
+            changed({"type":"changed",
                                   "x": this.x, "y":this.y, "w":this.w, "h":this.h  ,"dy":dy});
         }
     

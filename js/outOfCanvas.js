@@ -1,4 +1,4 @@
-define([],function(){
+define(['Ui'],function(Ui){
 
     "use strict";
     
@@ -11,12 +11,10 @@ define([],function(){
     * Checks if Rectangle collides with boundaries of context
     *
     * @method outside
-    * @param rect {Rectangle} 
-    * @param context {Object}
-    * @param notCanvas {Boolean} optional. Check collision with boundaries of canvas
+    * @param rect {Rectangle}
     * @return {Array} in which 0-element indicates collision
     */            
-    function outside(rect, context) {
+    function outside(rect) {
         var out = 0,
         i=0,
         theRest=1000; /*unused, so far*/
@@ -25,7 +23,7 @@ define([],function(){
             out|=1;
         }
     
-        if (rect.x + rect.w >= context.canvas.clientWidth) {
+        if (rect.x + rect.w >= Ui.context.canvas.clientWidth) {
             out|=2;
         }
     
@@ -35,7 +33,7 @@ define([],function(){
         }
     
     
-        if (rect.y + rect.h >= context.canvas.clientHeight) {
+        if (rect.y + rect.h >= Ui.context.canvas.clientHeight) {
             out|=8;
         }
     
