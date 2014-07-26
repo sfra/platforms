@@ -31,7 +31,7 @@ define(["Sprite"],function(Sprite){
                 _sprt.left=true;
             };
         
-                /**
+        /**
          * Reverse Sprite _sprt direction if is defined
          *
          * @method changeDirection

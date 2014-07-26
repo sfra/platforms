@@ -37,5 +37,5 @@ requirejs.onError = function (err) {
 //    }
 //};
 
-require(['main','keyboardManager'],function(){
+require(['main','keyboardManager','socketManager'],function(){
                  });

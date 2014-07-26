@@ -95,8 +95,7 @@ function Rectangle(x,y,w,h,fill,speed,direction,numberOfFrames) {
     * Draw the Rectangle on canvas. If Rectangle is filled by Sprite it can be overwritten
     *
     * @method draw
-    * @param dx {Number} 
-    * @param dy {Number} 
+    * @param cvn {Object}
     */
     Rectangle.prototype.draw=function(cnv){
         var previousFill=cnv.fillStyle;

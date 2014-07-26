@@ -4,7 +4,7 @@ define([],function(){
     endOfGame: false,
     lastMessage: '',    
     life:100,
-    player:null,
+    player:{},
     playerDirection: [0,1],
     otherPlayerLife:100,
     shelfs:[],
