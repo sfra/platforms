@@ -2,10 +2,10 @@ requirejs.config({
                  baseUrl: 'js',
 
                  paths:{
-                  'jquery':[
-                  '../node_modules/jquery/dist/jquery.min',
-                  'http://code.jquery.com/jquery-2.1.0.min'                  
-                    ],
+                  //'jquery':[
+                  //'../node_modules/jquery/dist/jquery.min',
+                  //'http://code.jquery.com/jquery-2.1.0.min'                  
+                  //  ],
                   'socketio':[
                     '../node_modules/socket.io/node_modules/socket.io-client/dist/socket.io'
                   ],

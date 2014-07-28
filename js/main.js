@@ -9,10 +9,14 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
     /*settings scene*/
     var cnv = document.getElementById("cnv");
-    Ui.context = cnv.getContext("2d");
+    var canvasWidth=window.getComputedStyle(cnv).getPropertyValue('width');
+    var canvasHeight=window.getComputedStyle(cnv).getPropertyValue('height');
 
+    Ui.context = cnv.getContext("2d");
+    
     Ui.context.__proto__.cls = function() {
-        this.clearRect(0, 0, parseInt($("#cnv").css("width")), parseInt($("#cnv").css("height")));
+        
+        this.clearRect(0, 0, parseInt(canvasWidth,10), parseInt(canvasHeight,10));
     };
 
     Ui.context.fillStyle = "#334455";
