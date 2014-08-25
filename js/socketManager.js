@@ -1,6 +1,6 @@
 define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketio, Bullet, sounds, helpers,main){
     
-    console.log(Ui.player);
+    //console.log(Ui.player);
     var rectFactory = new helpers.rectangleFatory();
     var socket=main.socket;
     socket.emit('rrun');
@@ -71,21 +71,32 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
 
 
     socket.on('otherAreHit', function() {
-        Ui.otherPlayerLife -= 1;    
+        Ui.otherPlayerLife -= 1;
+        localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
     });
 
-    socket.on('changeDirection', function() {
+    socket.on('changeDirection', function(data) {
+        console.log(data);
+        
+        if (data) {
+            Ui.otherPlayer.spriteDecorator.setLeft();
+            return;
+        }
+        
         Ui.otherPlayer.spriteDecorator.changeDirection();
     });
 
     socket.on('otherInFire', function() {
         Ui.otherPlayerLife -= 0.025;
+        localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
     });
 
 
     socket.on('theEnd', function(data) {
         Ui.endOfGame = true;
         Ui.lastMessage = data ? 'You won' : 'You lose';
+        localStorage.setItem('life','');
+        localStorage.setItem('otherPlayerLife','');
     });
 
 

@@ -44,6 +44,31 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
 
 
+    if (localStorage.getItem('life')==='null' ||
+        localStorage.getItem('life')==='NaN' ||
+        localStorage.getItem('life')==='') {
+        localStorage.setItem('life',100);
+    };
+    
+    
+    if (localStorage.getItem('otherPlayerLife')==='null' ||
+        localStorage.getItem('otherPlayerLife')==='NaN' ||
+        localStorage.getItem('otherPlayerLife')==='') {
+        localStorage.setItem('otherPlayerLife',100);
+    };
+    
+    
+    
+    Ui.life=parseInt(localStorage.getItem('life'),10);
+    Ui.otherPlayerLife=parseInt(localStorage.getItem('otherPlayerLife'),10);
+    
+    //if (localStorage.getItem('isOpLeft')===null) {
+    //    localStorage.setItem('isOpLeft','1');
+    //} else if (localStorage.getItem('isOpLeft')==='0'){
+    //     Ui.otherPlayer.spriteDecorator.changeDirection();
+    //    };
+
+
     function nextFrame(step) {
 
         if (Ui.endOfGame) {
@@ -79,6 +104,7 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
         if (out[0] == 9 || out[0] == 1 || out[1] == 2) {
 
             Ui.life -= 0.025;
+            localStorage.setItem('life',Ui.life);
             socket.emit("fire");
         }
 
@@ -86,16 +112,17 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
             out = collision(Ui.player, [Ui.otherPlayerBullet]);
             if (out[0] == 9 || out[0] == 1 || out[1] == 2) {
                 Ui.life -= 1;
+                localStorage.setItem('life',Ui.life);
                 socket.emit("bingo");
-            }
+            };
             Ui.otherPlayerBullet.draw(Ui.context);
         }
 
 
         if (Ui.faceToLeft.now != Ui.faceToLeft.prev) {
-            socket.emit("changeDirection");
+            socket.emit("changeDirection",Ui.faceToLeft.now);
             Ui.player.spriteDecorator.changeDirection();
-        }
+        };
 
 
 
@@ -103,7 +130,7 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
         if (Ui.bullet) {
             Bullet.moveBullet(Ui.bullet);
-        }
+        };
 
         Ui.otherPlayer.draw(Ui.context);
 
