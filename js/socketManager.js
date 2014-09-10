@@ -35,6 +35,8 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
         Ui.otherPlayerPrevX = Ui.otherPlayer.x;
         Ui.otherPlayerPrevY = Ui.otherPlayer.y;
         helpers.changeOther(data[0], data[1], Ui.otherPlayer);
+        localStorage.setItem('otherPlayerPosition',data);
+
 
     });
     socket.on('bulletFired', function(data) {

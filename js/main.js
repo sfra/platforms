@@ -41,21 +41,27 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
         img: "bulletDestroyed"});
     Ui.rectDec = new RectangleDecorator(bulletDestroyed);
     Ui.bulletDestroyed = bulletDestroyed;
+    var otherPlayerPosition=null;
 
 
-
-    if (localStorage.getItem('life')==='null' ||
-        localStorage.getItem('life')==='NaN' ||
-        localStorage.getItem('life')==='') {
+    if (!localStorage.getItem('life')) {
         localStorage.setItem('life',100);
     };
     
     
-    if (localStorage.getItem('otherPlayerLife')==='null' ||
-        localStorage.getItem('otherPlayerLife')==='NaN' ||
-        localStorage.getItem('otherPlayerLife')==='') {
+    if (!localStorage.getItem('otherPlayerLife')) {
         localStorage.setItem('otherPlayerLife',100);
     };
+    
+
+    if (!(otherPlayerPosition=localStorage.getItem('otherPlayerPosition'))) {
+        localStorage.setItem('otherPlayerPosition',Ui.otherPlayer.x+','+Ui.otherPlayer.y);
+    } else {
+        
+        helpers.changeOther(otherPlayerPosition.split(',')[0], otherPlayerPosition.split(',')[1], Ui.otherPlayer);
+        console.log(otherPlayerPosition);
+        
+    }
     
     
     
