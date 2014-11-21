@@ -21,8 +21,9 @@ define([],function(){
     turbo: 1,
     bullet:false,
     bulletDirection:-1,
-    bulletFalling: [-1,-3,-2,-1,-1,0,0,2,2,3,3,2,2,1,1,-1,1,-1,-1,-1,1,1,1,0]
-        
+    bulletFalling: [-1,-3,-2,-1,-1,0,0,2,2,3,3,2,2,1,1,-1,1,-1,-1,-1,1,1,1,0],
+    isSickStage: 0,
+    isSickStageEnemy:0
     }    
         
     

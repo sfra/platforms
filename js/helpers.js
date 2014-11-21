@@ -167,10 +167,43 @@ define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator','Ui
                     }
                 }
             }
+        },
+    
+    makeSick: function(context,rect){        
+        console.log(arguments);
+            
+        var imageData = context.getImageData(rect.x, rect.y, rect.w, rect.h);
+        var points = imageData.data;
+        var numberOfPoints= imageData.width * imageData.height;
+        for (var i = 0; i < numberOfPoints; i++) {
+            points[i*4] = points[i*4]<100?255-points[i*4]:points[i*4];
+            points[i*4+1] = points[i*4+1]<100?255-points[i*4+1]:points[i*4+1];
+            points[i*4+2] = 255-points[i*4+2]; 
+        };
+       
+        debugger;   
+        
+        if (window.context) {
+            window.context.clearRect(rect.x,rect.y, rect.w, rect.h);
+            window.context.putImageData(imageData, rect.x,rect.y);
+        } else {
+            context.clearRect(0,0, rect.w, rect.h);
+            context.putImageData(imageData, rect.x,rect.y);
         }
 
+       
+            
+            
+//        var imageData=context.getImageData(0,0,100,100);
+
+        console.log(imageData.data);
+        
+        
+        
+    }
 
 
+    
     }
 
 

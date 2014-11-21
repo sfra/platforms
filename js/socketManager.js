@@ -75,6 +75,9 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
     socket.on('otherAreHit', function() {
         Ui.otherPlayerLife -= 1;
         localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
+        if (Ui.isSickStageEnemy===0) {
+            Ui.isSickStageEnemy=10;
+        }
     });
 
     socket.on('changeDirection', function(data) {

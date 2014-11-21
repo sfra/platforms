@@ -4,7 +4,7 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
 
 
-    var temporalSprites = [], that = this, socket = io.connect('http://localhost:1338');
+    var temporalSprites = [], that = this, socket = io.connect('http://0.0.0.0:1338');
 
 
     /*settings scene*/
@@ -14,6 +14,7 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
     Ui.context = cnv.getContext("2d");
     
+
     Ui.context.__proto__.cls = function() {
         
         this.clearRect(0, 0, parseInt(canvasWidth,10), parseInt(canvasHeight,10));
@@ -76,7 +77,9 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
 
     function nextFrame(step) {
+//        helpers.makeSick(Ui.context,0,0,10,10);
 
+        
         if (Ui.endOfGame) {
             alert(Ui.lastMessage);
 
@@ -117,6 +120,13 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
         if (Ui.otherPlayerBullet) {
             out = collision(Ui.player, [Ui.otherPlayerBullet]);
             if (out[0] == 9 || out[0] == 1 || out[1] == 2) {
+                
+                //helpers.makeSick(Ui.context,Ui.player);
+               if (Ui.isSickStage===0) {
+                    Ui.isSickStage=10;  
+               }
+               
+                
                 Ui.life -= 1;
                 localStorage.setItem('life',Ui.life);
                 socket.emit("bingo");
@@ -134,11 +144,21 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
         Ui.player.draw(Ui.context);
 
+        if (Ui.isSickStage>0) {
+            helpers.makeSick(Ui.context,Ui.player);
+            Ui.isSickStage-=1;
+        }
+        
         if (Ui.bullet) {
             Bullet.moveBullet(Ui.bullet);
         };
 
         Ui.otherPlayer.draw(Ui.context);
+        
+        if (Ui.isSickStageEnemy>0) {
+            helpers.makeSick(Ui.context,Ui.otherPlayer);
+            Ui.isSickStageEnemy-=1;
+        }
 
 
         changed({"type": "changed"});
