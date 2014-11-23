@@ -95,6 +95,13 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
         Ui.otherPlayerLife -= 0.025;
         localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
     });
+    
+    
+    socket.on('stone2',function(data){
+        console.log(data);
+        Ui.newStone={x:data.geometry[0], y:data.geometry[1]};
+    
+    });
 
 
     socket.on('theEnd', function(data) {

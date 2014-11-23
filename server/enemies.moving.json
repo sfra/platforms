@@ -1,0 +1,15 @@
+[
+
+    {"geometry": [130,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [300,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [400,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [450,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [550,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [600,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [650,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [700,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [750,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [800,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}},
+    {"geometry": [900,340,20,20],"color":"img:stone2","speed":{"right":0,"down":0}}
+
+]

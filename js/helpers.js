@@ -181,7 +181,7 @@ define(['Rectangle','RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator','Ui
             points[i*4+2] = 255-points[i*4+2]; 
         };
        
-        debugger;   
+
         
         if (window.context) {
             window.context.clearRect(rect.x,rect.y, rect.w, rect.h);

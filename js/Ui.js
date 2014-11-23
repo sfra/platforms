@@ -9,6 +9,7 @@ define([],function(){
     otherPlayerLife:100,
     shelfs:[],
     enemies: [],
+    newStone: false,
     left:false,
     right: false,
     up: true,
