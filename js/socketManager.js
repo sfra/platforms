@@ -15,6 +15,9 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
 
     });
 
+
+
+
     socket.on('initEnemies', function(data) {
 
         helpers.addRectangles(Ui.enemies, data, 17);
@@ -22,7 +25,28 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
     });
 
 
-
+    socket.on('yourNumber',function(data){
+        Ui.myNumber=parseInt(data,10);
+        
+        localStorage.setItem('myNumber',Ui.number);
+        
+        
+    });
+    
+    socket.on('life',function (data){
+//        console.log(data);
+      //  console.log(Ui.myNumber);
+        if(Ui.myNumber===0){
+            Ui.life=data[0];
+            Ui.otherPlayerLife=data[1];
+        } else {
+            Ui.life=data[1];
+            Ui.otherPlayerLife=data[0];
+        }
+        
+    });
+    
+    
 
     socket.on('rrun', function() {
         Ui.otherPlayer.spriteDecorator.setLeft();
@@ -73,7 +97,7 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
 
 
     socket.on('otherAreHit', function() {
-        Ui.otherPlayerLife -= 1;
+        //Ui.otherPlayerLife -= 1;
         localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
         if (Ui.isSickStageEnemy===0) {
             Ui.isSickStageEnemy=10;
@@ -81,7 +105,7 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
     });
 
     socket.on('changeDirection', function(data) {
-        console.log(data);
+      // console.log(data);
         
         if (data) {
             Ui.otherPlayer.spriteDecorator.setLeft();
@@ -92,13 +116,13 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
     });
 
     socket.on('otherInFire', function() {
-        Ui.otherPlayerLife -= 0.025;
+       // Ui.otherPlayerLife -= 0.025;
         localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
     });
     
     
     socket.on('stone2',function(data){
-        console.log(data);
+       // console.log(data);
         Ui.newStone={x:data.geometry[0], y:data.geometry[1]};
     
     });
@@ -112,6 +136,10 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
     });
 
 
+    socket.on('youWin',function(){
+        Ui.lastMessage='opponent surrended';
+        Ui.endOfGame=true;
+    });
 
 
 });

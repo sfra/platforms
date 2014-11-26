@@ -1,13 +1,12 @@
-"use strict";
 define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collision', 'Bullet', 'Ui'],
         function (RectangleDecorator, SpriteDecorator, helpers, changed, collision, Bullet, Ui, sounds) {
+            'use strict';
 
 
-
-            var temporalSprites = [], that = this, socket = io.connect('http://0.0.0.0:1338'),
+            var temporalSprites = [], that = this, socket = io.connect('http://0.0.0.0:1338?xxx=1111'),
                     stones = [];
 
-
+            socket.emit('myNumber', Ui.myNumber);
             /*settings scene*/
             var cnv = document.getElementById("cnv");
             var canvasWidth = window.getComputedStyle(cnv).getPropertyValue('width');
@@ -24,7 +23,7 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
             Ui.context.fillStyle = "#334455";
 
             var stonesFactory = new helpers.rectangleFatory();
-            stonesFactory.setMovementParameters(0, 1, 1);
+            stonesFactory.setMovementParameters(0, 10, 1);
             /*settings player*/
             var rectFactory = new helpers.rectangleFatory();
             rectFactory.setMovementParameters(2, 2, 6, -1);
@@ -47,16 +46,16 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
             var otherPlayerPosition = null;
 
 
-            if (!localStorage.getItem('life')) {
-                localStorage.setItem('life', 100);
-            }
-            ;
-
-
-            if (!localStorage.getItem('otherPlayerLife')) {
-                localStorage.setItem('otherPlayerLife', 100);
-            }
-            ;
+//            if (!localStorage.getItem('life')) {
+//                localStorage.setItem('life', 100);
+//            }
+//            ;
+//
+//
+//            if (!localStorage.getItem('otherPlayerLife')) {
+//                localStorage.setItem('otherPlayerLife', 100);
+//            }
+//            ;
 
 
             if (!(otherPlayerPosition = localStorage.getItem('otherPlayerPosition'))) {
@@ -70,9 +69,9 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
 
 
-            Ui.life = parseInt(localStorage.getItem('life'), 10);
-            Ui.otherPlayerLife = parseInt(localStorage.getItem('otherPlayerLife'), 10);
-
+            /*            Ui.life = parseInt(localStorage.getItem('life'), 10);
+             Ui.otherPlayerLife = parseInt(localStorage.getItem('otherPlayerLife'), 10);
+             */
             //if (localStorage.getItem('isOpLeft')===null) {
             //    localStorage.setItem('isOpLeft','1');
             //} else if (localStorage.getItem('isOpLeft')==='0'){
@@ -81,8 +80,6 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
 
             function nextFrame(step) {
-//        helpers.makeSick(Ui.context,0,0,10,10);
-
 
                 if (Ui.endOfGame) {
                     alert(Ui.lastMessage);
@@ -112,21 +109,39 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                 helpers.setPlayerDirection(socket, Ui.playerDirection, Ui.otherPlayer);
                 Ui.player.move(Ui.playerDirection[0], Ui.playerDirection[1]);
 
-                var out = collision(Ui.player, Ui.enemies, true);
-
                 if (Ui.newStone) {
 
                     stones.push(stonesFactory.create({x: Ui.newStone.x, y: -20,
                         w: 20, h: 20, img: 'stone2'}));
                     Ui.newStone = false;
                 }
+                var out = collision(Ui.player, Ui.enemies, true);
 
                 if (out[0] === 9 || out[0] === 1 || out[1] === 2) {
 
-                    Ui.life -= 0.025;
-                    localStorage.setItem('life', Ui.life);
-                    socket.emit("fire");
+                    //Ui.life -= 0.025;
+                    // localStorage.setItem('life', Ui.life);
+                    socket.emit('fire');
                 }
+                ;
+
+                out = collision(Ui.player, stones);
+                if (out[0] === 9 || out[0] === 1 || out[1] === 2) {
+
+
+                    if (Ui.isSickStage === 0) {
+                        Ui.isSickStage = 10;
+                    };
+
+                    //Ui.life -= 1;
+                    // localStorage.setItem('life', Ui.life);
+                    socket.emit('bingo');
+
+                };
+
+
+
+
 
                 if (Ui.otherPlayerBullet) {
                     out = collision(Ui.player, [Ui.otherPlayerBullet]);
@@ -135,23 +150,21 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                         //helpers.makeSick(Ui.context,Ui.player);
                         if (Ui.isSickStage === 0) {
                             Ui.isSickStage = 10;
-                        }
+                        };
 
 
-                        Ui.life -= 1;
-                        localStorage.setItem('life', Ui.life);
-                        socket.emit("bingo");
-                    }
-                    ;
+                        // Ui.life -= 1;
+                        // localStorage.setItem('life', Ui.life);
+                        socket.emit('bingo');
+                    };
                     Ui.otherPlayerBullet.draw(Ui.context);
-                }
+                };
 
 
                 if (Ui.faceToLeft.now !== Ui.faceToLeft.prev) {
                     socket.emit("changeDirection", Ui.faceToLeft.now);
                     Ui.player.spriteDecorator.changeDirection();
-                }
-                ;
+                };
 
 
 
@@ -160,26 +173,26 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                 if (Ui.isSickStage > 0) {
                     helpers.makeSick(Ui.context, Ui.player);
                     Ui.isSickStage -= 1;
-                }
+                };
 
                 if (Ui.bullet) {
                     Bullet.moveBullet(Ui.bullet);
-                }
-                ;
+                };
 
 
 //                debugger;
                 for (var st = 0, max = stones.length; st < max; st++) {
-                    stones[st].y += 1;
+                    stones[st].y += 5;
+//                                debugger;
                     stones[st].draw(Ui.context);
-                    if(stones[st].y>parseInt(canvasHeight,10)){
-                        debugger;
-                        stones.splice(st,1);
-                        max-=1;
-                        st-=1;
-                        
-                    }
-                }
+                    if (stones[st].y > parseInt(canvasHeight, 10)) {
+
+                        stones.splice(st, 1);
+                        max -= 1;
+                        st -= 1;
+
+                    };
+                };
 
 
 
@@ -193,18 +206,11 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
                 changed({"type": "changed"});
                 Ui.faceToLeft.prev = Ui.faceToLeft.now;
-            }
-            ;
+            };
 
 
-
-
-
+            
             return {nextFrame: nextFrame, socket: socket};
-
-
-
-
 
         });
 

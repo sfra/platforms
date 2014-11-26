@@ -4,6 +4,7 @@
 var Server = {};
 
 Server.sockets = [];
+Server.socketsLife = [100, 100];
 Server.endOfGame = false;
 var enemies_moving = require('./enemies.moving.json');
 var stoneNumber = 0;
@@ -21,6 +22,7 @@ Server.nextFrame = function (io, sockets) {
             } else {
                 sockets[i].emit('theEnd', false);
             }
+            ;
         }
         ;
 
@@ -39,44 +41,35 @@ Server.nextFrame = function (io, sockets) {
                 if (stoneNumber >= numberOfStones) {
                     stoneNumber = 0;
                 }
+                ;
 
             }
+            ;
         }
-
-
+        ;
     }
-
-
-
-
-
-
-
-for (i = 0; i < sockets.length; i++) {
-
-    sockets[i].emit("nextFrame");
-
-}
-;
-
-
-
-
-
-
-
-if (Server.endOfGame) {
+    ;
 
 
 
     for (i = 0; i < sockets.length; i++) {
-        Server.sockets[i].end();
+
+        sockets[i].emit('life', Server.socketsLife);
+        sockets[i].emit('nextFrame');
+
     }
     ;
 
-    Server.sockets = [];
+    if (Server.endOfGame) {
+        for (i = 0; i < sockets.length; i++) {
+            Server.sockets[i].end();
+        }
+        ;
 
-}
+        Server.sockets = [];
+
+    }
+    ;
 
 
 };
@@ -88,13 +81,19 @@ Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
     var _eventToSend = eventToSend !== undefined ? eventToSend : eventReceived;
     socket.on(eventReceived, function (data) {
         for (var sock = 0; sock < sockets.length; sock += 1) {
-            if (sockets[sock] != socket) {
+            if (sockets[sock] !== socket) {
                 sockets[sock].emit(_eventToSend, data);
+                switch (eventReceived) {
+                    case 'bingo':
+                        Server.socketsLife[1 - sock] -= 1;
+                    case 'fire' :
+                        Server.socketsLife[1 - sock] -= 0.025;
+                }
+
             }
 
-
-
         }
+        ;
     });
 
 };
@@ -114,9 +113,14 @@ Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
 
     io.sockets.on('connection', function (socket) {
         socket.living = true;
+         
+
+        
+        socket.emit('yourNumber', sockets.length);
         sockets.push(socket);
         socket.emit('initGame', shelfs);
         socket.emit('initEnemies', enemies);
+        
 //        console.log(enemies_moving);
 
 
@@ -131,6 +135,10 @@ Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
         Server.dispatch(socket, sockets, 'bulletMove');
         Server.dispatch(socket, sockets, 'bulletDestroy');
 
+       socket.on('disconnect',function (){
+           socket.broadcast.emit('youWin');
+           
+       });
         socket.on('endOfLife', function (data) {
             socket.living = false;
             Server.endOfGame = true;
