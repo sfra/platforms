@@ -152,11 +152,11 @@
 
         
         
-        {"geometry": [730,220,10,100],"color":"#0fffff","speed":{"right":0,"down":0}},
-        {"geometry": [760,220,10,100],"color":"#ffffff","speed":{"right":0,"down":0}},
-        {"geometry": [790,220,10,100],"color":"#0fffff","speed":{"right":0,"down":0}},
-        {"geometry": [820,220,10,100],"color":"#0fffff","speed":{"right":0,"down":0}},
-        {"geometry": [850,220,10,100],"color":"#0fffff","speed":{"right":0,"down":0}}
+        {"geometry": [730,220,10,100],"color":"img:candle","speed":{"right":0,"down":0},"numberOfFrames":1,"pattern": true},
+        {"geometry": [760,220,10,100],"color":"img:candle","speed":{"right":0,"down":0},"numberOfFrames":1,"pattern": true},
+        {"geometry": [790,220,10,100],"color":"img:candle","speed":{"right":0,"down":0},"numberOfFrames":1,"pattern": true},
+        {"geometry": [820,220,10,100],"color":"img:candle","speed":{"right":0,"down":0},"numberOfFrames":1,"pattern": true},
+        {"geometry": [850,220,10,100],"color":"img:candle","speed":{"right":0,"down":0},"numberOfFrames":1,"pattern": true}
                ]
     
     
