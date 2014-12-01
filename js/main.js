@@ -151,7 +151,7 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                     if (out[0] === 9 || out[0] === 1 || out[1] === 2) {
                         //
                         //console.log(animations);
-                        animations.shake();
+//                        animations.shake();
                         //helpers.makeSick(Ui.context,Ui.player);
                         if (Ui.isSickStage === 0) {
                             Ui.isSickStage = 10;

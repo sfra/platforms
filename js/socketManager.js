@@ -79,7 +79,7 @@ define(['Ui','socketio','Bullet','sounds','helpers','main','dom/animations'],fun
 
 
 
-
+        animations.shake();
         Ui.bulletDestroyed.x = Ui.otherPlayerBullet.x;
         Ui.bulletDestroyed.y = Ui.otherPlayerBullet.y - 10;
         helpers.temporalAnimations.addOne(Ui.bulletDestroyed,19);
@@ -99,7 +99,7 @@ define(['Ui','socketio','Bullet','sounds','helpers','main','dom/animations'],fun
     socket.on('otherAreHit', function() {
         //Ui.otherPlayerLife -= 1;
         localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
-        animations.shake();
+//        animations.shake();
 
         if (Ui.isSickStageEnemy===0) {
             Ui.isSickStageEnemy=10;

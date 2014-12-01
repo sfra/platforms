@@ -1,5 +1,5 @@
 
-define(['Rectangle', 'RectangleDecorator', 'collision', 'helpers', 'sounds', 'Ui'], function (Rectangle, RectangleDecorator, collision, helpers, sounds, Ui) {
+define(['Rectangle', 'RectangleDecorator', 'collision', 'helpers', 'sounds', 'Ui','dom/animations'], function (Rectangle, RectangleDecorator, collision, helpers, sounds, Ui, animations) {
     var rectFactory = new helpers.rectangleFatory(),
             bulletDestroyed,
             _bulletDirection,
@@ -34,6 +34,7 @@ define(['Rectangle', 'RectangleDecorator', 'collision', 'helpers', 'sounds', 'Ui
 
         if (posAccToCanvasShelfs) {
             runBullet.socket.emit("bulletDestroy");
+            animations.shake();
             bulletDestroyed.x = bullet.x;
             bulletDestroyed.y = bullet.y - 10;
             helpers.temporalAnimations.addOne(bulletDestroyed,19);
