@@ -144,8 +144,8 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
         },
         temporalAnimations: {
             currentAnimations: [],
-            addOne: function (rect) {
-                rect.makeTemporal(19);
+            addOne: function (rect,numberOfFrames) {
+                rect.makeTemporal(numberOfFrames);
                 this.currentAnimations.push(rect);
             },
             nextState: function () {

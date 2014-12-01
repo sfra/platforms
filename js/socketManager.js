@@ -1,4 +1,4 @@
-define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketio, Bullet, sounds, helpers,main){
+define(['Ui','socketio','Bullet','sounds','helpers','main','dom/animations'],function(Ui, socketio, Bullet, sounds, helpers,main,animations){
     
     //console.log(Ui.player);
     var rectFactory = new helpers.rectangleFatory();
@@ -82,7 +82,7 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
 
         Ui.bulletDestroyed.x = Ui.otherPlayerBullet.x;
         Ui.bulletDestroyed.y = Ui.otherPlayerBullet.y - 10;
-        helpers.temporalAnimations.addOne(Ui.bulletDestroyed);
+        helpers.temporalAnimations.addOne(Ui.bulletDestroyed,19);
         sounds.explosion();      
         sounds.stopFlying();
         
@@ -99,6 +99,8 @@ define(['Ui','socketio','Bullet','sounds','helpers','main'],function(Ui, socketi
     socket.on('otherAreHit', function() {
         //Ui.otherPlayerLife -= 1;
         localStorage.setItem('otherPlayerLife',Ui.otherPlayerLife);
+        animations.shake();
+
         if (Ui.isSickStageEnemy===0) {
             Ui.isSickStageEnemy=10;
         }

@@ -1,5 +1,5 @@
-define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collision', 'Bullet', 'Ui'],
-        function (RectangleDecorator, SpriteDecorator, helpers, changed, collision, Bullet, Ui, sounds) {
+define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collision', 'Bullet', 'Ui','dom/animations'],
+        function (RectangleDecorator, SpriteDecorator, helpers, changed, collision, Bullet, Ui,animations) {
             'use strict';
 
 
@@ -72,11 +72,12 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
             /*            Ui.life = parseInt(localStorage.getItem('life'), 10);
              Ui.otherPlayerLife = parseInt(localStorage.getItem('otherPlayerLife'), 10);
              */
-            //if (localStorage.getItem('isOpLeft')===null) {
-            //    localStorage.setItem('isOpLeft','1');
-            //} else if (localStorage.getItem('isOpLeft')==='0'){
-            //     Ui.otherPlayer.spriteDecorator.changeDirection();
-            //    };
+            if (localStorage.getItem('isOpLeft') === null) {
+                localStorage.setItem('isOpLeft', '1');
+            } else if (localStorage.getItem('isOpLeft') === '0') {
+                Ui.otherPlayer.spriteDecorator.changeDirection();
+            }
+            ;
 
 
             function nextFrame(step) {
@@ -131,13 +132,15 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
                     if (Ui.isSickStage === 0) {
                         Ui.isSickStage = 10;
-                    };
+                    }
+                    ;
 
                     //Ui.life -= 1;
                     // localStorage.setItem('life', Ui.life);
                     socket.emit('bingo');
 
-                };
+                }
+                ;
 
 
 
@@ -146,25 +149,31 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                 if (Ui.otherPlayerBullet) {
                     out = collision(Ui.player, [Ui.otherPlayerBullet]);
                     if (out[0] === 9 || out[0] === 1 || out[1] === 2) {
-
+                        //
+                        //console.log(animations);
+                        animations.shake();
                         //helpers.makeSick(Ui.context,Ui.player);
                         if (Ui.isSickStage === 0) {
                             Ui.isSickStage = 10;
-                        };
+                        }
+                        ;
 
 
                         // Ui.life -= 1;
                         // localStorage.setItem('life', Ui.life);
                         socket.emit('bingo');
-                    };
+                    }
+                    ;
                     Ui.otherPlayerBullet.draw(Ui.context);
-                };
+                }
+                ;
 
 
                 if (Ui.faceToLeft.now !== Ui.faceToLeft.prev) {
                     socket.emit("changeDirection", Ui.faceToLeft.now);
                     Ui.player.spriteDecorator.changeDirection();
-                };
+                }
+                ;
 
 
 
@@ -173,11 +182,13 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                 if (Ui.isSickStage > 0) {
                     helpers.makeSick(Ui.context, Ui.player);
                     Ui.isSickStage -= 1;
-                };
+                }
+                ;
 
                 if (Ui.bullet) {
                     Bullet.moveBullet(Ui.bullet);
-                };
+                }
+                ;
 
 
 //                debugger;
@@ -191,8 +202,10 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                         max -= 1;
                         st -= 1;
 
-                    };
-                };
+                    }
+                    ;
+                }
+                ;
 
 
 
@@ -206,10 +219,11 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
 
                 changed({"type": "changed"});
                 Ui.faceToLeft.prev = Ui.faceToLeft.now;
-            };
+            }
+            ;
 
 
-            
+
             return {nextFrame: nextFrame, socket: socket};
 
         });

@@ -2,6 +2,9 @@
     width: 1000px;
     height: 500px;
     background-color: #8899ff;
+    position: absolute;
+    top: 30px;
+    left: 40px;
 }
 #otherPlayerLife{
     color: #ff0000;

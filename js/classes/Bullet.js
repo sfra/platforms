@@ -36,7 +36,7 @@ define(['Rectangle', 'RectangleDecorator', 'collision', 'helpers', 'sounds', 'Ui
             runBullet.socket.emit("bulletDestroy");
             bulletDestroyed.x = bullet.x;
             bulletDestroyed.y = bullet.y - 10;
-            helpers.temporalAnimations.addOne(bulletDestroyed);
+            helpers.temporalAnimations.addOne(bulletDestroyed,19);
             bulletFallingPhase = 0;
             delete Ui.bullet;
 

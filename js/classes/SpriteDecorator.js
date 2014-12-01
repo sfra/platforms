@@ -20,7 +20,7 @@ define(["Sprite"], function (Sprite) {
             _sprt.isReversible = true;
             _sprt.setImages(true);
 
-        }
+        };
 
         /**
          * Change Sprite _sprt orientation to the left
@@ -37,7 +37,7 @@ define(["Sprite"], function (Sprite) {
          * @method changeDirection
          */
         this.changeDirection = function () {
-            if (_sprt.left != undefined) {
+            if (_sprt.left !== undefined) {
                 _sprt.left = !_sprt.left;
             }
         };
@@ -46,7 +46,7 @@ define(["Sprite"], function (Sprite) {
 
 
 
-    }
+    };
 
 
     return SpriteDecorator;
