@@ -21,6 +21,9 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
             };
 
             Ui.context.fillStyle = "#334455";
+            
+            var wallpaper=new Image();
+            wallpaper.src='media/images/sprites/wallPaper.png';
 
             var stonesFactory = new helpers.rectangleFatory();
             stonesFactory.setMovementParameters(0, 10, 1);
@@ -98,6 +101,7 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
                 Ui.context.cls();
 
                 Ui.context.fillStyle = '#111';
+                Ui.context.drawImage(wallpaper,0,0);
                 Ui.context.font = 'bold 15px sans-serif';
                 Ui.context.textBaseline = 'bottom';
                 Ui.context.fillText('Life: ' + parseInt(Ui.life, 10), 460, 20);

@@ -144,7 +144,7 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
         },
         temporalAnimations: {
             currentAnimations: [],
-            addOne: function (rect,numberOfFrames) {
+            addOne: function (rect, numberOfFrames) {
                 rect.makeTemporal(numberOfFrames);
                 this.currentAnimations.push(rect);
             },
@@ -175,18 +175,34 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
             var points = imageData.data;
             var numberOfPoints = imageData.width * imageData.height;
             for (var i = 0; i < numberOfPoints; i++) {
-                points[i * 4] = points[i * 4] < 100 ? 255 - points[i * 4] : points[i * 4];
-                points[i * 4 + 1] = points[i * 4 + 1] < 100 ? 255 - points[i * 4 + 1] : points[i * 4 + 1];
-                points[i * 4 + 2] = 255 - points[i * 4 + 2];
-            };
+                if (Math.abs(points[i * 4] - 44)<20 && Math.abs(points[i * 4 + 1] - 49)<20 && Math.abs(points[i + 4 + 2] - 31)<20) {
+                    
+                    points[i * 4] = 0;//points[i * 4] < 100 ? 255 - points[i * 4] : points[i * 4];
+                    points[i * 4 + 1] = 255;// points[i * 4 + 1] < 100 ? 255 - points[i * 4 + 1] : points[i * 4 + 1];
+                    points[i * 4 + 2] = 0;//255 - points[i * 4 + 2];
+                    continue;
+                };
+                if (points[i * 4] < 200 || points[i * 4 + 1] < 200 || points[i * 4 + 2 ] < 200) {
+                    continue;
+                }
+                ;
+
+                points[i * 4] = 255;//points[i * 4] < 100 ? 255 - points[i * 4] : points[i * 4];
+                points[i * 4 + 1] = 0;// points[i * 4 + 1] < 100 ? 255 - points[i * 4 + 1] : points[i * 4 + 1];
+                points[i * 4 + 2] = 0;//255 - points[i * 4 + 2];
+
+
+
+            }
+            ;
 
 
 
             if (window.context) {
-                window.context.clearRect(rect.x, rect.y, rect.w, rect.h);
+                //window.context.clearRect(rect.x, rect.y, rect.w, rect.h);
                 window.context.putImageData(imageData, rect.x, rect.y);
             } else {
-                context.clearRect(0, 0, rect.w, rect.h);
+                //  context.clearRect(0, 0, rect.w, rect.h);
                 context.putImageData(imageData, rect.x, rect.y);
             }
 
