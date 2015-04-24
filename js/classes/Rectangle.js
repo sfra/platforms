@@ -70,11 +70,11 @@ define(["socketio", "Sprite", "SpriteDecorator", "changed"], function (socket, S
 
         var charValueOfdy = (dy === 0 ? 0 : dy / Math.abs(dy));
 
-        for (i = 0; i < Math.abs(dy); i++) {
+        for (i = 0; i < Math.abs(dy); i+=1) {
             this.y += charValueOfdy;
             changed({"type": "changed",
                 "x": this.x, "y": this.y, "w": this.w, "h": this.h, "dy": dy});
-        }
+        };
 
         var charValueOfdx = (dx === 0 ? 0 : dx / Math.abs(dx));
 
@@ -90,20 +90,20 @@ define(["socketio", "Sprite", "SpriteDecorator", "changed"], function (socket, S
         } else {
             this.sprite.animate(false);
         }
-    }
+    };
 
     /**
      * Draw the Rectangle on canvas. If Rectangle is filled by Sprite it can be overwritten
      *
      * @method draw
-     * @param cvn {Object}
+     * @param cvn {Object} canvas context
      */
     Rectangle.prototype.draw = function (cnv) {
         var previousFill = cnv.fillStyle;
         cnv.fillStyle = this.color;
         cnv.fillRect(this.x, this.y, this.w, this.h);
         cnv.fillStyle = previousFill;
-    }
+    };
 
     Rectangle.prototype.spriteChangeDirection = function () {
         this.spriteDecorator.changeDirection();

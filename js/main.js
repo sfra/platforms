@@ -3,8 +3,9 @@ define(['RectangleDecorator', 'SpriteDecorator', 'helpers', 'changed', 'collisio
             'use strict';
 
 
-            var temporalSprites = [], that = this, socket = io.connect('http://0.0.0.0:1338?xxx=1111'),
-                    stones = [];
+            var that = this,
+                socket = io.connect('http://0.0.0.0:1338?xxx=1111'),
+                stones = [];
 
             socket.emit('myNumber', Ui.myNumber);
             /*settings scene*/

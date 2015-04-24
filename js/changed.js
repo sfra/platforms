@@ -1,5 +1,5 @@
 define(['Ui', 'collision'], function (Ui, collision) {
-
+    'use strict';
     return (
             function (data) {
                 var posAccToCanvasShelfs = collision(Ui.player, Ui.shelfs)[0];

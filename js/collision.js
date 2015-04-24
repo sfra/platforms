@@ -1,6 +1,3 @@
-
-
-
 define(['outOfCanvas', 'Ui'], function (outOfCanvas, Ui) {
 
     "use strict";
@@ -30,13 +27,6 @@ define(['outOfCanvas', 'Ui'], function (outOfCanvas, Ui) {
             } else {
 
             }
-
-
-            //if (rect.x+rect.w > blocks[i].x &&  rect.x < blocks[i].x+blocks[i].w && rect.y===blocks[i].y+blocks[i].h) {
-            //    out|=4; /*top*/
-            //} else{
-            //    outside.ui.up = true;
-            //}
 
 
             if (rect.x + rect.w > blocks[i].x && rect.x < blocks[i].x + blocks[i].w && (rect.y >= blocks[i].y + blocks[i].h && rect.y - 5 <= blocks[i].y + blocks[i].h)) {

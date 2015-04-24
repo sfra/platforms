@@ -1,6 +1,5 @@
 define(['Ui','socketio','Bullet','sounds','helpers','main','dom/animations'],function(Ui, socketio, Bullet, sounds, helpers,main,animations){
-    
-    //console.log(Ui.player);
+    'use strict';
     var rectFactory = new helpers.rectangleFatory();
     var socket=main.socket;
     socket.emit('rrun');
@@ -34,15 +33,14 @@ define(['Ui','socketio','Bullet','sounds','helpers','main','dom/animations'],fun
     });
     
     socket.on('life',function (data){
-//        console.log(data);
-      //  console.log(Ui.myNumber);
+
         if(Ui.myNumber===0){
             Ui.life=data[0];
             Ui.otherPlayerLife=data[1];
         } else {
             Ui.life=data[1];
             Ui.otherPlayerLife=data[0];
-        }
+        };
         
     });
     

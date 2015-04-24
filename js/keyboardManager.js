@@ -1,6 +1,6 @@
 define(['helpers', 'Ui', 'Bullet'], function (helpers, Ui, Bullet) {
-
-    var KEYNUMBER = helpers.KEYNUMBER, KEYSTRING = helpers.KEYSTRING;
+    'use strict';
+    var KEYSTRING = helpers.KEYSTRING;
     var _body = document.body;
 
     _body.addEventListener('keydown', function (e) {

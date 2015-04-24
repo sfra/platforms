@@ -1,4 +1,4 @@
-define(['Rectangle'], function (Rectangle) {
+define(['Rectangle'], function () {
     'use strict';
 
     var RectangleDecorator = function (rect) {
@@ -15,8 +15,8 @@ define(['Rectangle'], function (Rectangle) {
                     _times -= 1;
                     oldDraw(cnv);
 
-                }
-            }
+                };
+            };
         };
 
         _rect.getTimes = function () {

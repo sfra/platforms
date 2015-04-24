@@ -1,4 +1,5 @@
 define([], function () {
+    'use strict';
     return {
         context: null,
         endOfGame: false,
@@ -26,7 +27,7 @@ define([], function () {
         bulletFalling: [-1, -3, -2, -1, -1, 0, 0, 2, 2, 3, 3, 2, 2, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 0],
         isSickStage: 0,
         isSickStageEnemy: 0
-    }
+    };
 
 
 });
