@@ -16,7 +16,12 @@ requirejs.config({
                   'SpriteDecorator':['classes/SpriteDecorator'],
                   'RectangleDecoratorPattern' : ['classes/RectangleDecoratorPattern']
                     
-                  }
+                  },
+    
+                    
+                shim: {'socketio': {
+                    exports: 'io'
+                }}
                  
                  
                  
