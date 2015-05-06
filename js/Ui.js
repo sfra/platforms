@@ -18,7 +18,10 @@ define([], function () {
         down: true,
         space: false,
         isJumping: false,
-        faceToLeft: {now: true, prev: true},
+        faceToLeft: {
+            now: true,
+            prev: true
+        },
         eventFrameSync: 0,
         gameSpeed: 15,
         turbo: 1,

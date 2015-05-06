@@ -1,11 +1,6 @@
 define(['Ui'],function(Ui){
 
-    "use strict";
-    
-    
-    
-    
-    
+    'use strict';
 
     /**
     * Checks if Rectangle collides with boundaries of context

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 define([], function() {
     /**
@@ -10,7 +10,7 @@ define([], function() {
     function Sprite(url, numberOfFrames, direction) {        
         var images = [],
             imagesRight = [],
-            subfolder = "",
+            subfolder = '',
             nextFrameNumber = 0,
             _numberOfFrames=numberOfFrames,
             i=0,
@@ -21,29 +21,29 @@ define([], function() {
         /**
          * Fills images array of Images objecs
          * @method setImages
-         * @param right {boolean} if is set to true, then take images oriented to the right
+         * @param right {boolean} if is set to true, then take images oriented
+         * to the right
          */
         this.setImages=function(right){
+            
             for (i = 0; i < numberOfFrames; i += 1) {
                 images.push(new Image());
-                images[i].src = "media/images/sprites/" + url + (direction===1?"/right":"") + "/0" + i + ".png";
+                images[i].src = 'media/images/sprites/' + url +
+                    (direction===1?'/right':'') + '/0' + i + '.png';
 
-                
-                
-                
                 if (this.isReversible) {
                     imagesRight[i]=new Image();
-                    imagesRight[i].src = "media/images/sprites/" + url + "/right" + "/0" + i + ".png";
-                }
-            }       
-        }
-
-            
+                    imagesRight[i].src = 'media/images/sprites/' + url +
+                        '/right' + '/0' + i + '.png';
+                };
+            };       
+        };
+  
         if (direction === 1) {
             this.setImages(true);
         } else {
             this.setImages();
-        }
+        };
         
         
         /**
@@ -90,7 +90,7 @@ define([], function() {
         
         this.getImages=function(){
             return images;
-        }
+        };
         
     };
     

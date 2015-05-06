@@ -39,7 +39,7 @@ define(["Sprite"], function (Sprite) {
         this.changeDirection = function () {
             if (_sprt.left !== undefined) {
                 _sprt.left = !_sprt.left;
-            }
+            };
         };
 
 
