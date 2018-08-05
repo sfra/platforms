@@ -8,8 +8,8 @@ define(["Sprite"], function (Sprite) {
      * @class SpriteDecorator
      * @constructor
      */
-    var SpriteDecorator = function (sprt) {
-        var _sprt = sprt;
+    let SpriteDecorator = function (sprt) {
+        let _sprt = sprt;
 
         /**
          * Enable Sprite _sprt to be reversed

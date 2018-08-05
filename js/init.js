@@ -2,9 +2,9 @@ define(['helpers', 'Ui', 'RectangleDecorator', 'SpriteDecorator'],
     function (helpers, Ui, RectangleDecorator, SpriteDecorator) {
 
         /*set scene*/
-        var cnv = document.getElementById('cnv');
-        var canvasWidth = window.getComputedStyle(cnv).getPropertyValue('width');
-        var canvasHeight = window.getComputedStyle(cnv).getPropertyValue('height');
+        let cnv = document.getElementById('cnv');
+        let canvasWidth = window.getComputedStyle(cnv).getPropertyValue('width');
+        let canvasHeight = window.getComputedStyle(cnv).getPropertyValue('height');
 
         Ui.context = cnv.getContext('2d');
 
@@ -14,14 +14,14 @@ define(['helpers', 'Ui', 'RectangleDecorator', 'SpriteDecorator'],
 
         Ui.context.fillStyle = '#334455';
 
-        var wallpaper = new Image();
+        let wallpaper = new Image();
         wallpaper.src = 'media/images/sprites/wallPaper.png';
 
-        var stonesFactory = new helpers.rectangleFatory();
+        let stonesFactory = new helpers.rectangleFatory();
         stonesFactory.setMovementParameters(0, 10, 1);
 
         /*set player*/
-        var rectFactory = new helpers.rectangleFatory();
+        let rectFactory = new helpers.rectangleFatory();
         rectFactory.setMovementParameters(2, 2, 6, -1);
         Ui.player = rectFactory.create({
             x: 140,
@@ -52,7 +52,7 @@ define(['helpers', 'Ui', 'RectangleDecorator', 'SpriteDecorator'],
 
         /*settings bullet destroyed*/
         rectFactory.setMovementParameters(0, 0, 19, 0);
-        var bulletDestroyed = rectFactory.create({
+        let bulletDestroyed = rectFactory.create({
             x: 0,
             y: 0,
             w: 20,
@@ -61,7 +61,7 @@ define(['helpers', 'Ui', 'RectangleDecorator', 'SpriteDecorator'],
         });
         Ui.rectDec = new RectangleDecorator(bulletDestroyed);
         Ui.bulletDestroyed = bulletDestroyed;
-        var otherPlayerPosition = null;
+        let otherPlayerPosition = null;
 
         if (!(otherPlayerPosition = localStorage.getItem('otherPlayerPosition'))) {
             localStorage.setItem('otherPlayerPosition', Ui.otherPlayer.x + ',' +

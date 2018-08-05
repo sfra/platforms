@@ -5,7 +5,7 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
 
         return {
             ext: function (dest, src) {
-                for (var prop in src) {
+                for (let prop in src) {
                     if (src.hasOwnProperty(prop)) {
                         dest[prop] = src[prop];
                     };
@@ -13,19 +13,24 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
             },
 
             addRectangles: function (arr, data, numberOfFrames) {
-                var rectFatory = new this.rectangleFatory();
+                let rectFatory = new this.rectangleFatory();
                 rectFatory.setMovementParameters(0, 0, numberOfFrames, 0);
-                var rectParametes = null;
+                let rectParametes = null;
 
 
-                for (var ob = 0; ob < data.length; ob++) {
+                for (let ob = 0; ob < data.length; ob++) {
                     rectParametes = {
                         x: data[ob].geometry[0],
                         y: data[ob].geometry[1],
                         w: data[ob].geometry[2],
                         h: data[ob].geometry[3]
                     };
-
+                    
+                    
+                    if (data[ob]['playerDirection'] !== undefined) {
+                        rectParametes.playerDirection = data[ob]['playerDirection'];
+                    };
+                    
                     if (data[ob].color[0] === '#') {
                         this.ext(rectParametes, {
                             color: data[ob].color
@@ -42,7 +47,7 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
                     };
 
                     if (data[ob].pattern) {
-                        var rect = rectFatory.create(rectParametes);
+                        let rect = rectFatory.create(rectParametes);
                         RectangleDecoratorPattern(rect);
                         arr.push(rect);
                         continue;
@@ -54,7 +59,7 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
             },
 
             drawArrayed: function (arr) {
-                for (var i = 0, max = arr.length; i < max; i++) {
+                for (let i = 0, max = arr.length; i < max; i++) {
                     arr[i].draw(Ui.context);
                 }
 
@@ -114,10 +119,10 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
             },
 
             rectangleFatory: function () {
-                var speed = {},
+                let speed = {},
                     numberOfFrames, direction;
 
-                var setMovementParameters = function () {
+                let setMovementParameters = function () {
                     speed.right = arguments[0];
                     speed.down = arguments[1];
                     numberOfFrames = arguments[2];
@@ -125,12 +130,16 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
                 };
 
 
-                var create = function (ob) {
-                    var rect = new Rectangle(ob.x, ob.y, ob.w, ob.h);
-                    var _numberOfFrames = numberOfFrames;
+                let create = function (ob) {
+                    let rect = new Rectangle(ob.x, ob.y, ob.w, ob.h);
+                    let _numberOfFrames = numberOfFrames;
 
                     if (ob.numberOfFrames !== undefined) {
                         _numberOfFrames = ob.numberOfFrames;
+                    };
+                    
+                    if(ob.playerDirection!==undefined) {
+                        rect.playerDirection = ob.playerDirection;
                     };
 
 
@@ -150,7 +159,7 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
 
                 };
 
-                var overrideMovementParameters = function (ob) {
+                let overrideMovementParameters = function (ob) {
                     speed = (ob.speed === undefined) ? speed : ob.speed;
                     numberOfFrames = (ob.numberOfFrames === undefined) ?
                         numberOfFrames : ob.numberOfFrames;
@@ -174,7 +183,7 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
                     this.currentAnimations.push(rect);
                 },
                 nextState: function () {
-                    var i,
+                    let i,
                         max = this.currentAnimations.length;
 
                     for (i = 0; i < max;) {
@@ -196,11 +205,11 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
             },
 
             makeSick: function (context, rect) {
-                var imageData = context.getImageData(rect.x, rect.y, rect.w, rect.h),
+                let imageData = context.getImageData(rect.x, rect.y, rect.w, rect.h),
                     points = imageData.data,
                     numberOfPoints = imageData.width * imageData.height;
 
-                for (var i = 0; i < numberOfPoints; i++) {
+                for (let i = 0; i < numberOfPoints; i++) {
 
                     if (Math.abs(points[i * 4] - 44) < 20 &&
                         Math.abs(points[i * 4 + 1] - 49) < 20 &&

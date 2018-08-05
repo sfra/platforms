@@ -1,17 +1,17 @@
 "use strict";
 
 
-var Server = {};
+let Server = {};
 
 Server.sockets = [];
 Server.socketsLife = [100, 100];
 Server.endOfGame = false;
-var enemies_moving = require('./enemies.moving.json');
-var stoneNumber = 0;
-var numberOfStones = enemies_moving.length;
+let enemies_moving = require('./enemies.moving.json');
+let stoneNumber = 0;
+let numberOfStones = enemies_moving.length;
 Server.nextFrame = function (io, sockets) {
 
-    var i = 0;
+    let i = 0;
 
 
     if (Server.endOfGame) {
@@ -78,9 +78,9 @@ Server.nextFrame = function (io, sockets) {
 
 
 Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
-    var _eventToSend = eventToSend !== undefined ? eventToSend : eventReceived;
+    let _eventToSend = eventToSend !== undefined ? eventToSend : eventReceived;
     socket.on(eventReceived, function (data) {
-        for (var sock = 0; sock < sockets.length; sock += 1) {
+        for (let sock = 0; sock < sockets.length; sock += 1) {
             if (sockets[sock] !== socket) {
                 sockets[sock].emit(_eventToSend, data);
                 switch (eventReceived) {
@@ -101,7 +101,7 @@ Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
 
 
 (function server() {
-    var io = require('socket.io').listen(1338),
+    let io = require('socket.io').listen(1338),
             shelfs = require('./shelfs.json'),
             enemies = require('./enemies.json'),
             sockets = Server.sockets,

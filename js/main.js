@@ -4,18 +4,18 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
     'use strict';
 
 
-    var that = this,
+    let that = this,
         socket = io.connect('http://0.0.0.0:1338?xxx=1111'),
         stones = [];
 
     socket.emit('myNumber', Ui.myNumber);
 
 
-    var cnv = init.cnv;
-    var canvasWidth = init.canvasWidth;
-    var canvasHeight = init.canvasHeight;
-    var wallpaper = init.wallpaper;
-    var stonesFactory = init.stonesFactory;
+    let cnv = init.cnv;
+    let canvasWidth = init.canvasWidth;
+    let canvasHeight = init.canvasHeight;
+    let wallpaper = init.wallpaper;
+    let stonesFactory = init.stonesFactory;
 
 
     function nextFrame(step) {
@@ -57,7 +57,7 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
             Ui.newStone = false;
         };
 
-        var out = collision(Ui.player, Ui.enemies, true);
+        let out = collision(Ui.player, Ui.enemies, true);
 
         if (out[0] === 9 || out[0] === 1 || out[1] === 2) {
             socket.emit('fire');
@@ -98,8 +98,8 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
         if (Ui.bullet) {
             Bullet.moveBullet(Ui.bullet);
         };
-
-        for (var st = 0, max = stones.length; st < max; st++) {
+        
+        for (let st = 0, max = stones.length; st < max; st++) {
             stones[st].y += 5;
             stones[st].draw(Ui.context);
             if (stones[st].y > parseInt(canvasHeight, 10)) {

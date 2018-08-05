@@ -14,11 +14,11 @@ define(['outOfCanvas', 'Ui'], function (outOfCanvas, Ui) {
      * @return {Array} in which 0-element indicates collision
      */
 
-    function outside(rect, blocks, notCanvas) {
-        var out = !notCanvas ? outOfCanvas(rect)[0] : 0,
+    function outside(rect, blocks, notCanvas, movingShelfs) {
+        let out = !notCanvas ? outOfCanvas(rect)[0] : 0,
             i = 0,
             theRest = 1000; /*unused, so far*/
-
+        let forcedDirection = null;
 
 
         for (i = 0; i < blocks.length; i += 1) {
@@ -26,8 +26,11 @@ define(['outOfCanvas', 'Ui'], function (outOfCanvas, Ui) {
             if (rect.x + rect.w > blocks[i].x && rect.x < blocks[i].x +
                 blocks[i].w && rect.y + rect.h === blocks[i].y) {
                 out |= 8; /*bottom*/
-            } else {
-
+    //            console.log(blocks[i]);
+                if(blocks[i].playerDirection!==undefined) {
+                    console.log(blocks[i].playerDirection);
+                    forcedDirection = blocks[i].playerDirection;
+                }
             };
 
             if (rect.x + rect.w > blocks[i].x && rect.x < blocks[i].x +
@@ -51,8 +54,8 @@ define(['outOfCanvas', 'Ui'], function (outOfCanvas, Ui) {
             };
 
         };
-
-        return [out, theRest];
+        console.log([out, theRest,forcedDirection]);
+        return [out, theRest,forcedDirection];
 
     };
 

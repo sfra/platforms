@@ -3,7 +3,7 @@
 define(["socketio", "Sprite", "SpriteDecorator", "changed"],
     function (socket, Sprite, SpriteDecorator, changed) {
 
-        var i = 0;
+        let i = 0;
         /**
          * Rectangle class
          *
@@ -54,7 +54,7 @@ define(["socketio", "Sprite", "SpriteDecorator", "changed"],
          *
          */
         Rectangle.prototype.rewriteDraw = function () {
-            var that = this;
+            let that = this;
             this.draw = function (cnv) {
                 cnv.drawImage(that.sprite.getNextFrame(), that.x, that.y,
                     that.w, that.h);
@@ -71,7 +71,7 @@ define(["socketio", "Sprite", "SpriteDecorator", "changed"],
          */
         Rectangle.prototype.move = function (dx, dy) {
 
-            var charValueOfdy = (dy === 0 ? 0 : dy / Math.abs(dy));
+            let charValueOfdy = (dy === 0 ? 0 : dy / Math.abs(dy));
 
             for (i = 0; i < Math.abs(dy); i += 1) {
                 this.y += charValueOfdy;
@@ -85,7 +85,7 @@ define(["socketio", "Sprite", "SpriteDecorator", "changed"],
                 });
             };
 
-            var charValueOfdx = (dx === 0 ? 0 : dx / Math.abs(dx));
+            let charValueOfdx = (dx === 0 ? 0 : dx / Math.abs(dx));
 
             for (i = 0; i < Math.abs(dx); i++) {
                 this.x += charValueOfdx;
@@ -115,7 +115,7 @@ define(["socketio", "Sprite", "SpriteDecorator", "changed"],
          * @param cvn {Object} canvas context
          */
         Rectangle.prototype.draw = function (cnv) {
-            var previousFill = cnv.fillStyle;
+            let previousFill = cnv.fillStyle;
             cnv.fillStyle = this.color;
             cnv.fillRect(this.x, this.y, this.w, this.h);
             cnv.fillStyle = previousFill;
