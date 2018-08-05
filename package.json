@@ -8,8 +8,7 @@
     "test": "test"
   },
   "dependencies": {
-    "jquery": "^2.1.1",
-    "requirejs": "^2.1.14",
+    "requirejs": "^2.3.5",
     "socket.io": "^2.1.1"
   },
   "scripts": {
