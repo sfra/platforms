@@ -1,8 +1,7 @@
 {
   "name": "platforms",
   "version": "0.0.1",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "description": "HTML5 multiplayer game",
   "main": "index.html",
   "directories": {
@@ -11,7 +10,7 @@
   "dependencies": {
     "jquery": "^2.1.1",
     "requirejs": "^2.1.14",
-    "socket.io": "^0.9.16"
+    "socket.io": "^2.1.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
