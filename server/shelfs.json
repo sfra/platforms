@@ -15,7 +15,7 @@
     {"geometry": [400,370,30,10],"color":"img:ab","speed":{"right":0,"down":0},"playerDirection": 1},
     {"geometry": [440,370,30,10],"color":"img:ab","speed":{"right":0,"down":0},"playerDirection": 1},
     
-  
+      {"geometry": [530,150,80,10],"color":"img:abL","speed":{"right":0,"down":0},"playerDirection": -1},
     
     
     

@@ -45,7 +45,9 @@ define(['helpers', 'Ui', 'Bullet'], function (helpers, Ui, Bullet) {
 
 
     _body.addEventListener('keyup', function (e) {
-
+	e.preventDefault();
+	
+	
         switch (KEYSTRING[e.keyCode]) {
         case "left":
             Ui.left = false;
@@ -60,7 +62,7 @@ define(['helpers', 'Ui', 'Bullet'], function (helpers, Ui, Bullet) {
             break;
         }
 
-
+	Event.stop(event);
     }, false);
 
 
