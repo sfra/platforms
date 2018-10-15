@@ -2,13 +2,23 @@
         {"geometry": [300,240,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [200,240,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [210,160,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
-         
+
         {"geometry": [100,470,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [170,470,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
-        
-        
+
+
         {"geometry": [130,340,20,20],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [730,190,10,30],"color":"img:flame","speed":{"right":0,"down":0}},
         {"geometry": [790,190,10,30],"color":"img:flame","speed":{"right":0,"down":0}},
-        {"geometry": [850,190,10,30],"color":"img:flame","speed":{"right":0,"down":0}}
+        {"geometry": [850,190,10,30],"color":"img:flame","speed":{"right":0,"down":0}},
+
+
+
+        {"geometry": [460,420,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
+        {"geometry": [470,420,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
+        {"geometry": [480,400,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
+        {"geometry": [490,400,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
+
+        {"geometry": [510,380,10,20],"color":"img:flame","speed":{"right":0,"down":0}},
+        {"geometry": [520,380,10,20],"color":"img:flame","speed":{"right":0,"down":0}}
 ]
