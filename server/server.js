@@ -63,8 +63,7 @@ Server.nextFrame = function (io, sockets) {
     if (Server.endOfGame) {
         for (i = 0; i < sockets.length; i++) {
             Server.sockets[i].end();
-        }
-        ;
+        };
 
         Server.sockets = [];
 
@@ -113,14 +112,14 @@ Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
 
     io.sockets.on('connection', function (socket) {
         socket.living = true;
-         
 
-        
+
+
         socket.emit('yourNumber', sockets.length);
         sockets.push(socket);
         socket.emit('initGame', shelfs);
         socket.emit('initEnemies', enemies);
-        
+
 //        console.log(enemies_moving);
 
 
@@ -137,7 +136,7 @@ Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
 
        socket.on('disconnect',function (){
            socket.broadcast.emit('youWin');
-           
+
        });
         socket.on('endOfLife', function (data) {
             socket.living = false;
@@ -151,5 +150,3 @@ Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
     });
 
 })();
-
-

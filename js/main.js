@@ -46,6 +46,24 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
         helpers.setPlayerDirection(socket, Ui.playerDirection, Ui.otherPlayer);
         Ui.player.move(Ui.playerDirection[0], Ui.playerDirection[1]);
 
+        if(Ui.girl.x >660) {
+            Ui.girl.direction=-1;
+            Ui.girl.spriteDecorator.changeDirection();
+          //  Ui.girl.left=true;
+        }
+
+        if(Ui.girl.x<550){
+          Ui.girl.direction=1;
+          Ui.girl.spriteDecorator.changeDirection();
+          //Ui.girl.left=false;
+        }
+
+
+
+        Ui.girl.move(Ui.girl.direction,0);
+
+        Ui.girl.draw(Ui.context);
+
         if (Ui.newStone) {
             stones.push(stonesFactory.create({
                 x: Ui.newStone.x,
@@ -72,6 +90,16 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
             socket.emit('bingo');
         };
 
+        out =collision(Ui.player,[Ui.girl]);
+
+        if (out[0] === 9 || out[0] === 1 || out[1] === 2) {
+            if (Ui.isSickStage === 0) {
+                Ui.isSickStage = 10;
+            };
+            socket.emit('bingo');
+        };
+
+
         if (Ui.otherPlayerBullet) {
             out = collision(Ui.player, [Ui.otherPlayerBullet]);
             if (out[0] === 9 || out[0] === 1 || out[1] === 2) {
@@ -84,7 +112,7 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
         };
 
         if (Ui.faceToLeft.now !== Ui.faceToLeft.prev) {
-            socket.emit("changeDirection", Ui.faceToLeft.now);
+            socket.emit( 'changeDirection ', Ui.faceToLeft.now);
             Ui.player.spriteDecorator.changeDirection();
         };
 
@@ -98,7 +126,7 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
         if (Ui.bullet) {
             Bullet.moveBullet(Ui.bullet);
         };
-        
+
         for (let st = 0, max = stones.length; st < max; st++) {
             stones[st].y += 5;
             stones[st].draw(Ui.context);
@@ -117,7 +145,7 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
         };
 
         changed({
-            "type": "changed"
+             'type ':  'changed '
         });
 
         Ui.faceToLeft.prev = Ui.faceToLeft.now;

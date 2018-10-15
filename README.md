@@ -24,3 +24,5 @@ Use arrow keys to move your square, hold shift for turbo move, space for jump an
 z for shot. Red square represents your "opponent".
 
 
+
+In this game sprite from the page  [gameart2d.com](https://www.gameart2d.com/cute-girl-free-sprites.html) has been used.

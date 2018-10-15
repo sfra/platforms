@@ -4,17 +4,17 @@ define(['Ui', 'collision'], function (Ui, collision) {
         function (data) {
             let collisions = collision(Ui.player, Ui.shelfs);
             let posAccToCanvasShelfs = collisions[0];
-            
-             
+
+
             let left = posAccToCanvasShelfs & 1;
             let right = posAccToCanvasShelfs & 2;
             let top = (posAccToCanvasShelfs & 4) | (posAccToCanvasShelfs & 16);
             let bottom = posAccToCanvasShelfs & 8;
 
             Ui.playerDirection = [0, 1];
-            
-            
-            
+
+
+
 
             if (left) {
                 Ui.left = false;
@@ -45,19 +45,17 @@ define(['Ui', 'collision'], function (Ui, collision) {
             if (Ui.right) {
                 Ui.playerDirection[0] = Ui.player.speed.right;
             };
-            
-            
-            console.log('[[[[[[[[[[[[]]]]]]]]]]]]');
-            console.log(Ui.playerDirection);
-            
+
+
+              
             if(collisions[2]!==null) {
-            
+
                     Ui.playerDirection[0] = collisions[2];
-                
+
             }
-            
-            
-            
+
+
+
 
         }
     );

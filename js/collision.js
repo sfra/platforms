@@ -28,7 +28,7 @@ define(['outOfCanvas', 'Ui'], function (outOfCanvas, Ui) {
                 out |= 8; /*bottom*/
     //            console.log(blocks[i]);
                 if(blocks[i].playerDirection!==undefined) {
-                    console.log(blocks[i].playerDirection);
+
                     forcedDirection = blocks[i].playerDirection;
                 }
             };
@@ -54,7 +54,7 @@ define(['outOfCanvas', 'Ui'], function (outOfCanvas, Ui) {
             };
 
         };
-        console.log([out, theRest,forcedDirection]);
+        
         return [out, theRest,forcedDirection];
 
     };

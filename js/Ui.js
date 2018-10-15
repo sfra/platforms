@@ -11,6 +11,7 @@ define([], function () {
         otherPlayerLife: 100,
         shelfs: [],
         enemies: [],
+        girls:[],
         newStone: false,
         left: false,
         right: false,

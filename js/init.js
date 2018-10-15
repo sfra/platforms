@@ -20,6 +20,30 @@ define(['helpers', 'Ui', 'RectangleDecorator', 'SpriteDecorator'],
         let stonesFactory = new helpers.rectangleFatory();
         stonesFactory.setMovementParameters(0, 10, 1);
 
+
+        let girlFactory = new helpers.rectangleFatory();
+        girlFactory.setMovementParameters(10, 0, 21, -1);
+        Ui.girl=girlFactory.create({
+          x:530,
+          y:190,
+          w:30,
+          h:30,
+          img:'girl'
+        });
+
+
+        Ui.girl.setSpriteDecorator(new  SpriteDecorator(Ui.girl.sprite));
+
+        Ui.girl.spriteDecorator.setReversible();
+
+       Ui.girl.spriteDecorator.setLeft();
+
+        girlFactory.overrideMovementParameters({
+          speed: {
+            right:0,
+            down: 0
+          }
+        });
         /*set player*/
         let rectFactory = new helpers.rectangleFatory();
         rectFactory.setMovementParameters(2, 2, 6, -1);
@@ -59,6 +83,9 @@ define(['helpers', 'Ui', 'RectangleDecorator', 'SpriteDecorator'],
             h: 20,
             img: 'bulletDestroyed'
         });
+
+
+
         Ui.rectDec = new RectangleDecorator(bulletDestroyed);
         Ui.bulletDestroyed = bulletDestroyed;
         let otherPlayerPosition = null;
@@ -83,7 +110,8 @@ define(['helpers', 'Ui', 'RectangleDecorator', 'SpriteDecorator'],
             canvasWidth: canvasWidth,
             canvasHeight: canvasHeight,
             wallpaper: wallpaper,
-            stonesFactory: stonesFactory
+            stonesFactory: stonesFactory,
+            girlFactory
         };
 
     });

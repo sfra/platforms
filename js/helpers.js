@@ -25,12 +25,12 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
                         w: data[ob].geometry[2],
                         h: data[ob].geometry[3]
                     };
-                    
-                    
+
+
                     if (data[ob]['playerDirection'] !== undefined) {
                         rectParametes.playerDirection = data[ob]['playerDirection'];
                     };
-                    
+
                     if (data[ob].color[0] === '#') {
                         this.ext(rectParametes, {
                             color: data[ob].color
@@ -137,7 +137,7 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
                     if (ob.numberOfFrames !== undefined) {
                         _numberOfFrames = ob.numberOfFrames;
                     };
-                    
+
                     if(ob.playerDirection!==undefined) {
                         rect.playerDirection = ob.playerDirection;
                     };
@@ -168,9 +168,9 @@ define(['Rectangle', 'RectangleDecoratorPattern', 'Sprite', 'SpriteDecorator', '
 
 
                 return {
-                    setMovementParameters: setMovementParameters,
-                    overrideMovementParameters: overrideMovementParameters,
-                    create: create
+                    setMovementParameters,
+                    overrideMovementParameters,
+                    create
                 };
 
 

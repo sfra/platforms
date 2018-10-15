@@ -3,12 +3,12 @@
 define([], function() {
     /**
      * Sprite class
-     * 
+     *
      * @class Sprite
      * @constructor
      */
-    function Sprite(url, numberOfFrames, direction) {        
-        var images = [],
+    function Sprite(url, numberOfFrames, direction) {
+        let images = [],
             imagesRight = [],
             subfolder = '',
             nextFrameNumber = 0,
@@ -17,7 +17,7 @@ define([], function() {
             that=this;
       this.images=images;
       this.currentImage=null;
- 
+
         /**
          * Fills images array of Images objecs
          * @method setImages
@@ -25,7 +25,7 @@ define([], function() {
          * to the right
          */
         this.setImages=function(right){
-            
+
             for (i = 0; i < numberOfFrames; i += 1) {
                 images.push(new Image());
                 images[i].src = 'media/images/sprites/' + url +
@@ -36,39 +36,39 @@ define([], function() {
                     imagesRight[i].src = 'media/images/sprites/' + url +
                         '/right' + '/0' + i + '.png';
                 };
-            };       
+            };
         };
-  
+
         if (direction === 1) {
             this.setImages(true);
         } else {
             this.setImages();
         };
-        
-        
+
+
         /**
          * Start or prepare animation
          * @method animate
          * @param start {boolean} if is set to true, animation immediately start
-         */ 
+         */
         this.animate=function(start){
-            
+
             if (start) {
                 _numberOfFrames=numberOfFrames;
                 return;
             }
             _numberOfFrames=1;
              nextFrameNumber=0;
-        };        
-            
+        };
+
         /**
          * Change the frame
          * @method getNextFrame
          */
         this.getNextFrame = function() {
-            
-          var current = nextFrameNumber;
-            
+
+          let current = nextFrameNumber;
+
             if (nextFrameNumber + 1 === numberOfFrames) {
                 nextFrameNumber = 0;
             } else {
@@ -80,20 +80,20 @@ define([], function() {
 
             return that.left?images[current]:imagesRight[current];
         };
-        
-        
+
+
         this.rewindFrames=function(){
             //debugger;
             nextFrameNumber=0;
-        
+
         };
-        
+
         this.getImages=function(){
             return images;
         };
-        
+
     };
-    
-    
+
+
     return Sprite;
 });
