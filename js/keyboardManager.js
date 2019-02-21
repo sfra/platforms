@@ -62,7 +62,7 @@ define(['helpers', 'Ui', 'Bullet'], function (helpers, Ui, Bullet) {
             break;
         }
 
-	Event.stop(event);
+//	Event.stop(e);
     }, false);
 
 
