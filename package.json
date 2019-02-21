@@ -1,7 +1,9 @@
 {
   "name": "platforms",
   "version": "0.0.1",
-  "devDependencies": {},
+  "devDependencies": {
+    "opn": "^5.4.0"
+  },
   "description": "HTML5 multiplayer game",
   "main": "index.html",
   "directories": {
@@ -12,8 +14,7 @@
     "socket.io": "^2.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "node server/server.js& && http-server"
+    "start": "node bin/run.js"
   },
   "repository": {
     "type": "git",
