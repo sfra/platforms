@@ -99,7 +99,16 @@ define(["socketio", "Sprite", "SpriteDecorator", "changed"],
                 });
             };
 
+            
+
+
+            
             if (dx !== 0 || dy !== 0) {
+                if(this.eventOnMove==='playerMoved') {
+
+                    console.log([this.x, this.y]);
+                    
+                }
                 this.socket.emit(this.eventOnMove, [this.x, this.y]);
                 this.sprite.animate(true);
             } else {

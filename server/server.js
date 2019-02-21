@@ -79,7 +79,10 @@ Server.nextFrame = function (io, sockets) {
 Server.dispatch = function (socket, sockets, eventReceived, eventToSend) {
     let _eventToSend = eventToSend !== undefined ? eventToSend : eventReceived;
     socket.on(eventReceived, function (data) {
-        for (let sock = 0; sock < sockets.length; sock += 1) {
+        
+
+        
+         for (let sock = 0; sock < sockets.length; sock += 1) {
             if (sockets[sock] !== socket) {
                 sockets[sock].emit(_eventToSend, data);
                 switch (eventReceived) {

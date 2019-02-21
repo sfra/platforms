@@ -45,7 +45,6 @@ define(['helpers', 'changed', 'collision', 'Bullet', 'Ui', 'dom/animations',
         helpers.drawArrayed(Ui.enemies);
         helpers.setPlayerDirection(socket, Ui.playerDirection, Ui.otherPlayer);
         Ui.player.move(Ui.playerDirection[0], Ui.playerDirection[1]);
-
         if(Ui.girl.x >660) {
             Ui.girl.direction=-1;
             Ui.girl.spriteDecorator.changeDirection();
