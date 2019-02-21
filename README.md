@@ -1,9 +1,10 @@
-# Platformers game.
+# Platforms game.
+![platform](https://user-images.githubusercontent.com/4636028/53198209-1cb32f00-361c-11e9-8d03-1986e918184a.gif)
 
 
 This is a simple demo of animations using canvas and socket.io libs. It do not use any external libraries for supporting any relevant game component (graphics, game physics).
 
-
+Watch and listen on [vimeo](https://vimeo.com/318857033)
 
 ## Build
 ```bash
